@@ -1,0 +1,9 @@
+# slapself - Set whether people can slap themselves or not 
+# slapdefault - The default slap type 
+# slaptypes - The definition of the slap types 
+#   1 - The name of a slap type 
+#     health - The health removed when a player is slapped 
+#     mustaccept - Whether the player must accept the slap or not 
+#
+#
+#

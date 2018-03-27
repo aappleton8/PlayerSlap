@@ -1,4 +1,4 @@
-package me.PlayerSlap.MainClasses;
+package me.PlayerSlap.CommandClasses;
 
 import java.util.logging.Logger;
 
@@ -6,7 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import me.PlayerSlap.Commands.PlayerSlapMainClass;
+import me.PlayerSlap.MainClasses.PlayerSlapMainClass;
 
 public class SlapAllCommand implements CommandExecutor {
 	public PlayerSlapMainClass plugin; 

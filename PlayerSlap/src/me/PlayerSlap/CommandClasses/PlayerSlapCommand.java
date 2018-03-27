@@ -1,4 +1,4 @@
-package me.PlayerSlap.MainClasses;
+package me.PlayerSlap.CommandClasses;
 
 import java.util.logging.Logger;
 
@@ -6,13 +6,13 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import me.PlayerSlap.Commands.PlayerSlapMainClass;
+import me.PlayerSlap.MainClasses.PlayerSlapMainClass;
 
-public class ForceSlapCommand implements CommandExecutor {
+public class PlayerSlapCommand implements CommandExecutor {
 	public PlayerSlapMainClass plugin; 
 	public Logger logger; 
 	
-	public ForceSlapCommand(PlayerSlapMainClass pluginInstance, Logger loggerInstance) {
+	public PlayerSlapCommand(PlayerSlapMainClass pluginInstance, Logger loggerInstance) {
 		plugin = pluginInstance; 
 		logger = loggerInstance; 
 	}

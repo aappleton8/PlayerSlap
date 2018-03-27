@@ -7,7 +7,7 @@ database: false
 commands:
   slap:
     description: Command to slap a player 
-    usage: /slap <player> [type]
+    usage: /slap [player] [type]
     aliases: [sl]
     permission-message: You do not have the required permissions to perform this command 
   slapall:

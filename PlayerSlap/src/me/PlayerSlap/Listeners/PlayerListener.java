@@ -4,7 +4,7 @@ import java.util.logging.Logger;
 
 import org.bukkit.event.Listener;
 
-import me.PlayerSlap.Commands.PlayerSlapMainClass;
+import me.PlayerSlap.MainClasses.PlayerSlapMainClass;
 
 public class PlayerListener implements Listener {
 	public PlayerSlapMainClass plugin; 
