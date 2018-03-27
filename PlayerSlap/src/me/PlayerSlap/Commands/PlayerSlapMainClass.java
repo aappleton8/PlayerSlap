@@ -28,5 +28,6 @@ public class PlayerSlapMainClass extends JavaPlugin {
 		descriptionFile = getDescription(); 
 		formattedPluginName = "[" + descriptionFile.getName() + "] "; 
 		logger.info(formattedPluginName + descriptionFile.getName() + " " + descriptionFile.getVersion() + " has been enabled "); 
+		getCommand("slap").setExecutor(); 
 	}
 }

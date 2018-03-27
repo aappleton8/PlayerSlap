@@ -3,4 +3,80 @@ main: me.PlayerSlap.MainClasses.PlayerSlapMainClasses
 version: development_0.0.0.0  
 description: A plugin to slap players  
 author: aappleton3 
-database: false 
+database: false
+commands:
+  slap:
+    description: Command to slap a player 
+    usage: /slap <player> [type]
+    aliases: [sl]
+    permission-message: You do not have the required permissions to perform this command 
+  slapall:
+    description: Command to slap every layer 
+    usage: /slapall [type]
+    aliases: [sla, slap-all]
+    permission-message: You do not have the required permissions to perform this command 
+  playerslap:
+    description: The base informative command for the PlayerSlap plugin 
+    usage: /playerslap <accept|deny|help|version|times <player>>
+    aliases: [ps, plasl]
+    permission-message: You do not have the required permissions to perform this command 
+  forceslap:
+    description: Slap Players with the playerslap.noslap permission 
+    usage: /forceslap <player> [type]
+    aliases: [fs, fosla]
+    permission-message: You do not have the required permissions to perform this command 
+permissions:
+  playerslap.*:
+    description: Give the player every PlayerSlap permission 
+    default: op
+    children:
+      playerslap.slap.all: true
+      playerslap.times.others: true
+      playerslap.force: true
+      playerslap.noslap.protect: true
+      playerslap.see.*: true
+  playerslap.slap.all:
+    description: Give the player permission to slap every player 
+    default: op
+    children:
+      playerslap.slap.others: true
+  playerslap.slap.others:
+    description: Give the player permission to slap other players 
+    default: op
+    children:
+      playerslap.slap: true
+  playerslap.slap:
+    description: Give the player permission to slap itself
+    default: op
+  playerslap.times.others:
+    description: Give the player permission to see how many times other players have been slapped 
+    default: op
+    children:
+      playerslap.times: true
+  playerslap.times:
+    description: Give the player permission to see how many times it has been slapped 
+    default: op
+  playerslap.force:
+    description: Give the player permission to use the /forceslap command 
+    default: op
+  playerslap.noslap.protect:
+    description: Slap any player who tries to slap the player with this permission 
+    default: op
+    children:
+      playerslap.noslap: true
+  playerslap.see.*:
+    description: Give the player permission to see all PlayerSlap messages 
+    default: op
+    children:
+      playerslap.see.slap: true
+      playerslap.see.noslap: true
+      playerslap.see.config: true
+  playerslap.see.slap:
+    description: Give the player permission to see when a player has been slapped
+    default: op
+  playerslap.see.noslap:
+    description: Give the player permission to see when a player tried to slap a player with the playerslap.noslap permission
+    default: op
+  playerslap.see.config:
+    description: Give the player permission to see config save and reload messages 
+    default: op

@@ -1,0 +1,6 @@
+slapself: true
+slapdefault: 1
+slaptypes:
+  1:
+    health: 3
+    mustaccept: true
