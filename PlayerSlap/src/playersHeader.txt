@@ -1,4 +1,9 @@
 # players - The slap information for each player 
-#
-#
+# An example is shown below 
+# players: 
+# 	uuid-goes-here:
+# 		username: player-username
+# 		exempt: false 
+# 		times: 2
+# 		mustaccept: false 
 #

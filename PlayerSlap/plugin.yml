@@ -17,7 +17,7 @@ commands:
     permission-message: You do not have the required permissions to perform this command 
   playerslap:
     description: The base informative command for the PlayerSlap plugin 
-    usage: /playerslap <accept|deny|help|version|times <player>>
+    usage: /playerslap <accept|deny|help|version|times <player>|config <save|reload|set <options>>>
     aliases: [ps, plasl]
     permission-message: You do not have the required permissions to perform this command 
   forceslap:
@@ -64,6 +64,9 @@ permissions:
     default: op
     children:
       playerslap.noslap: true
+  playerslap.noslap:
+    description: Prevent a player from being slapped 
+    default: op
   playerslap.see.*:
     description: Give the player permission to see all PlayerSlap messages 
     default: op

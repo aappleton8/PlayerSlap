@@ -2,8 +2,14 @@
 # slapdefault - The default slap type 
 # slaptypes - The definition of the slap types 
 #   1 - The name of a slap type 
-#     health - The health removed when a player is slapped 
-#     mustaccept - Whether the player must accept the slap or not 
-#
+#     	health (integer) - The health removed when a player is slapped 
+#     	mustaccept (true/false) - Whether the player must accept the slap or not 
+#		lighning (true/false) - Whether the player should be struck by lightning or not 
+#		smoke (integer) - The radius of the smoke effect (0 for no smoke) 
+#		messages: | $Giver becomes the slap giver; $Slapped become the person slapped; $Default becomes the default messages; $None for nothing  
+			broadcast: $Giver slapped $Slapped - The message broadcast to the server 
+			personal: You were slapped by $Giver - The message sent to the slapped player 
+			death: $Default - The addition message broadcast if the player is slapped to death 
+#		mobs - The mobs to spawn near the player (ENTITYTYPE: integer) 
 #
 #

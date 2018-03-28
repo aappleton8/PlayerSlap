@@ -1,5 +1,9 @@
 package me.PlayerSlap.MainClasses;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 import org.bukkit.command.CommandSender;
@@ -23,6 +27,11 @@ public class PlayerSlapMainClass extends JavaPlugin {
 	private final PlayerListener pl = new PlayerListener(this, logger); 
 	public PluginDescriptionFile descriptionFile; 
 	public String formattedPluginName; 
+	public List<UUID> needAcceptPlayers =  new ArrayList<>(); 
+	
+	public final String broadcastSlapMessage = "$Slapped was slapped by $Giver"; 
+	public final String personalSlapMessage = "You were slapped by $Giver. Respond with /playerslap <accept|deny>"; 
+	public final String deathSlapMessage = "$Slapped was slapped to death"; 
 	
 	@Override
 	public void onDisable() {
@@ -40,6 +49,17 @@ public class PlayerSlapMainClass extends JavaPlugin {
 		getCommand("slapall").setExecutor(new SlapAllCommand(plugin, logger)); 
 		getCommand("playerslap").setExecutor(new PlayerSlapCommand(plugin, logger)); 
 		getCommand("forceslap").setExecutor(new ForceSlapCommand(plugin, logger)); 
+		Set<String> UUIDs = yd.configuration.getConfigurationSection("players").getKeys(false); 
+		for (String i : UUIDs) {
+			try {
+				if (yd.configuration.getBoolean("players." + i + ".mustaccept") == true) {
+					needAcceptPlayers.add(UUID.fromString(i)); 
+				}
+			}
+			catch (NullPointerException e) {
+				logger.warning(formattedPluginName + "There is a malformed configuration file entry at: " + i); 
+			}
+		}
 	}
 	
 	public void noPermission(CommandSender s) {
