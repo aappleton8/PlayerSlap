@@ -2,7 +2,7 @@
  * 
  */
 /**
- * @author aappleton3
+ * @author aappleton8/aappleton3
  *
  */
 package me.PlayerSlap;
