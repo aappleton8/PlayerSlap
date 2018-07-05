@@ -1,28 +1,28 @@
 slapself: true
 slapdefault: 1
 slaptypes:
-	1:
-		health: 3
-		mustaccept: true
-		lighning: true
-		smoke: 30
-		messages:
-			broadcast: $Giver slapped $Slapped. 
-			personal: You were slapped by $Giver. Respond with /playerslap <accept|deny> 
-			death: $Default
-		mobs:
-			ZOMBIE: 5
-			SKELETON: 1
-	2:
-		health: 5
-		mustaccept: true
-		lightning: true
-		smoke: 50
-		messages:
-			broadcast: $Giver slapped $Slapped
-			personal: You were slapped by $Giver. Respond with /playerslap <accept|deny> 
-			death: $Default
-		mobs:
-			BLAZE: 10
-			GIANT: 1
-			VILLAGER: 100
+  1:
+    health: 3
+    mustaccept: true
+    lighning: true
+    smoke: 30
+    messages:
+      broadcast: $Giver slapped $Slapped. 
+      personal: $Giver
+      death: $Default
+    mobs:
+      ZOMBIE: 5
+      SKELETON: 1
+  2:
+    health: 5
+    mustaccept: true
+    lightning: true
+    smoke: 50
+    messages:
+      broadcast: $Default
+      personal: $Default
+      death: $Default
+    mobs:
+      BLAZE: 10
+      GIANT: 1
+      VILLAGER: 100

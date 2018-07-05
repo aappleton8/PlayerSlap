@@ -7,22 +7,22 @@ database: false
 commands:
   slap:
     description: Command to slap a player 
-    usage: /slap [player] [type]
+    usage: /slap [<player>] [<type>]
     aliases: [sl]
     permission-message: You do not have the required permissions to perform this command 
   slapall:
     description: Command to slap every layer 
-    usage: /slapall [type]
+    usage: /slapall [<type>]
     aliases: [sla, slap-all]
     permission-message: You do not have the required permissions to perform this command 
   playerslap:
     description: The base informative command for the PlayerSlap plugin 
-    usage: /playerslap <accept|deny|help|version|times <player>|config <save|reload|set <options>>>
+    usage: /playerslap accept|deny|help|version|{times <player>}|{config save|reload|{set <options>}}
     aliases: [ps, plasl]
     permission-message: You do not have the required permissions to perform this command 
   forceslap:
     description: Slap Players with the playerslap.noslap permission 
-    usage: /forceslap <player> [type]
+    usage: /forceslap <player> [<type>]
     aliases: [fs, fosla]
     permission-message: You do not have the required permissions to perform this command 
 permissions:
@@ -31,10 +31,11 @@ permissions:
     default: op
     children:
       playerslap.slap.all: true
-      playerslap.times.others: true
+      playerslap.times.*: true
       playerslap.force: true
       playerslap.noslap.protect: true
       playerslap.see.*: true
+      playerslap.config.*: true
   playerslap.slap.all:
     description: Give the player permission to slap every player 
     default: op
@@ -47,6 +48,15 @@ permissions:
       playerslap.slap: true
   playerslap.slap:
     description: Give the player permission to slap itself
+    default: op
+  playerslap.times.*:
+    description: Give the player to see how many times players have been slapped and reset them 
+    default: op
+    children: 
+      playerslap.times.reset: true
+      playerslap.times.others: true
+  playerslap.times.reset: 
+    description: Reset the amount of times a player has been slapped 
     default: op
   playerslap.times.others:
     description: Give the player permission to see how many times other players have been slapped 
@@ -81,5 +91,21 @@ permissions:
     description: Give the player permission to see when a player tried to slap a player with the playerslap.noslap permission
     default: op
   playerslap.see.config:
-    description: Give the player permission to see config save and reload messages 
+    description: Give the player permission to see config save, set and reload messages 
+    default: op
+  playerslap.config.*:
+    description: Give the player access to all config file commands 
+    default: op
+    children: 
+      playerslap.config.save: true
+      playerslap.config.reload: true
+      playerslap.config.set.* : true
+  playerslap.config.save:
+    description: Save the config file 
+    default: op
+  playerslap.config.reload:
+    description: Reload the config file 
+    default: op
+  playerslap.config.set.*:
+    description: Set basic config file options 
     default: op

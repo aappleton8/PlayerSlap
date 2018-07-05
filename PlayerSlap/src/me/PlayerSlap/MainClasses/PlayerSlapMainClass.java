@@ -24,14 +24,12 @@ public class PlayerSlapMainClass extends JavaPlugin {
 	public YamlFiles yc = new YamlFiles(this, logger, "config.yml", "config.txt");  
 	public YamlFiles yd = new YamlFiles(this, logger, "players.yml", "players.txt");  
 	
+	public MessageSender ms = new MessageSender(this, logger); 
 	private final PlayerListener pl = new PlayerListener(this, logger); 
+	
 	public PluginDescriptionFile descriptionFile; 
 	public String formattedPluginName; 
 	public List<UUID> needAcceptPlayers =  new ArrayList<>(); 
-	
-	public final String broadcastSlapMessage = "$Slapped was slapped by $Giver"; 
-	public final String personalSlapMessage = "You were slapped by $Giver. Respond with /playerslap <accept|deny>"; 
-	public final String deathSlapMessage = "$Slapped was slapped to death"; 
 	
 	@Override
 	public void onDisable() {
@@ -44,7 +42,6 @@ public class PlayerSlapMainClass extends JavaPlugin {
 		pm.registerEvents(pl, this); 
 		descriptionFile = getDescription(); 
 		formattedPluginName = "[" + descriptionFile.getName() + "] "; 
-		logger.info(formattedPluginName + descriptionFile.getName() + " " + descriptionFile.getVersion() + " has been enabled "); 
 		getCommand("slap").setExecutor(new SlapCommand(plugin, logger));  
 		getCommand("slapall").setExecutor(new SlapAllCommand(plugin, logger)); 
 		getCommand("playerslap").setExecutor(new PlayerSlapCommand(plugin, logger)); 
@@ -57,9 +54,10 @@ public class PlayerSlapMainClass extends JavaPlugin {
 				}
 			}
 			catch (NullPointerException e) {
-				logger.warning(formattedPluginName + "There is a malformed configuration file entry at: " + i); 
+				logger.warning(formattedPluginName + "There is a malformed configuration file entry at: players." + i); 
 			}
 		}
+		logger.info(formattedPluginName + descriptionFile.getName() + " " + descriptionFile.getVersion() + " has been enabled "); 
 	}
 	
 	public void noPermission(CommandSender s) {

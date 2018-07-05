@@ -1,6 +1,42 @@
 # PlayerSlap
 ## Description: 
-This plugin gives server administrators the ability to slap players as a form of punishment. 
+This plugin gives server administrators the ability to 'slap' players as a form of punishment. The action of 'slapping' can involve removing health, spawning mobs, hitting the player with lightning, producing smoke and broadcasting a message. 
 
 ## License: 
 This plugin and its source code are released under a MIT license (see the LICENSE file for full details). This plugin is copyright (c) aappleton3/aappleton8, 2018. 
+
+## Build: 
+This plugin is built using Eclipse. To build the plugin, the .classpath file firstly needs to be recreated using Eclipse, and the craftbukkit-1.12.2.jar file needs to be added as an external build dependency. 
+
+## Commands: 
+This plugin has the following commands: 
+ - */slap [&lt;player&gt;] [&lt;type&gt;]* - Slap a player 
+ - */slapall [&lt;type&gt;]* - Slap every player 
+ - */forceslap [&ltplayer&gt;] [&lt;type&gt;]* - Slap a player, even if it has the *playerslap.noslap* permission 
+ - */playerslap accept|deny|help|version|{times <player>}|{config save|reload|{set <options>}}* - The main playerslap command 
+
+## Permissions: 
+ - playerslap.* - The root permission for this plugin 
+ - playerslap.slap.all - Slap every players 
+ - playerslap.slap.others - Slap other players 
+ - playerslap.slap - Slap oneself 
+ - playerslap.times.* - See and reset the amount of times a player has been slapped 
+ - playerslap.times.reset - Reset the amount of times a player has been slapped 
+ - playerslap.times.others - See the amount of times another player has been slapped 
+ - playerslap.times - See the amount of times the command sender has been slapped 
+ - playerslap.force - Use the */forceslap* command 
+ - playerslap.noslap.protect - Prevent this player from being slapped and slap the slapping player 
+ - playerslap.noslap - Prevent this player from being slapped 
+ - playerslap.see.* - See all plugin messages 
+ - playerslap.see.slap - See player slap messages 
+ - playerslap.see.noslap - Let a player see whan a player tried to slap a player with the *playerslap.noslap* command 
+ - playerslap.see.config - Let a player see config save, set and reload messages 
+ - playerslap.config.* - Let a player use all config commands 
+ - playerslap.config.save - Let a player save the config 
+ - playerslap.config.reload - Let a player reload the config 
+ - playerslap.config.set.* - Let a player set basic config file options 
+
+## Configs: 
+This plugin uses the following config files: 
+ - config.yml 
+ - players.yml

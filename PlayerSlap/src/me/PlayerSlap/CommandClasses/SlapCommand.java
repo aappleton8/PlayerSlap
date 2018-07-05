@@ -31,11 +31,11 @@ public class SlapCommand implements CommandExecutor {
 				slapPlayer(s, toSlap); 
 			}
 			else {
-				s.sendMessage(ChatColor.RED + "This feature has been disabled in the config file "); 
+				plugin.ms.sendMessage(s, "configdisabled", null); 
 			}
 		}
 		else {
-			s.sendMessage(ChatColor.RED + "You must be a player to use this command with no parameters "); 
+			plugin.ms.sendMessage(s, "mustbeplayer", "with no arguments "); 
 		}
 		return true; 
 	}
@@ -51,6 +51,7 @@ public class SlapCommand implements CommandExecutor {
 				type = plugin.yc.configuration.getString("slapdefault"); 
 			}
 			else {
+				plugin.ms.sendMessage(s, "noslaptype", null); 
 				return false; 
 			}
 		}
@@ -92,22 +93,22 @@ public class SlapCommand implements CommandExecutor {
 	
 	private Boolean sendSlap(CommandSender s, Player player, String type) {
 		if (plugin.yc.configuration.contains("slaptypes." + type) == false) {
-			s.sendMessage(ChatColor.RED + "The specified slap type does not exist "); 
+			plugin.ms.sendMessage(s, "incorrectslaptype", null); 
 			return false; 
 		}
 		else {
-			String broadcastSlapMessage = plugin.broadcastSlapMessage; 
-			String personalSlapMessage = plugin.personalSlapMessage; 
-			String deathSlapMessage = plugin.deathSlapMessage; 
+			String broadcastSlapMessage = plugin.ms.broadcastSlapMessage; 
+			String personalSlapMessage = plugin.ms.personalSlapMessage; 
+			String deathSlapMessage = plugin.ms.deathSlapMessage; 
 			if (plugin.yc.configuration.contains("slaptypes." + type + ".messages") == true) {
 				if (plugin.yc.configuration.contains("slaptypes." + type + ".messages.broadcast") == true) {
-					broadcastSlapMessage = plugin.yc.configuration.getString("slaptypes." + type + ".messages.broadcast").replaceAll("$Default", plugin.broadcastSlapMessage).replaceAll("$Giver", s.getName()).replaceAll("$Slapped", player.getName()).replaceAll("$None", ""); 
+					broadcastSlapMessage = plugin.yc.configuration.getString("slaptypes." + type + ".messages.broadcast").replaceAll("$Default", plugin.ms.broadcastSlapMessage).replaceAll("$Giver", s.getName()).replaceAll("$Slapped", player.getName()).replaceAll("$None", ""); 
 				}
 				if (plugin.yc.configuration.contains("slaptypes." + type + ".messages.personal") == true) {
-					personalSlapMessage = plugin.yc.configuration.getString("slaptypes." + type + ".messages.personal").replaceAll("$Default", plugin.personalSlapMessage).replaceAll("$Giver", s.getName()).replaceAll("$Slapped", player.getName()).replaceAll("$None", ""); 
+					personalSlapMessage = plugin.yc.configuration.getString("slaptypes." + type + ".messages.personal").replaceAll("$Default", plugin.ms.personalSlapMessage).replaceAll("$Giver", s.getName()).replaceAll("$Slapped", player.getName()).replaceAll("$None", ""); 
 				}
 				if (plugin.yc.configuration.contains("slaptypes." + type + ".messages.death") == true) {
-					deathSlapMessage = plugin.yc.configuration.getString("slaptypes." + type + ".messages.death").replaceAll("$Default", plugin.deathSlapMessage).replaceAll("$Giver", s.getName()).replaceAll("$Slapped", player.getName()).replaceAll("$None", ""); 
+					deathSlapMessage = plugin.yc.configuration.getString("slaptypes." + type + ".messages.death").replaceAll("$Default", plugin.ms.deathSlapMessage).replaceAll("$Giver", s.getName()).replaceAll("$Slapped", player.getName()).replaceAll("$None", ""); 
 				}
 			}
 			if (plugin.yc.configuration.contains("slaptypes." + type + ".health") == true) {
