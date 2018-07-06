@@ -6,8 +6,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 public class MessageSender {
-	public PlayerSlapMainClass plugin; 
-	public Logger logger; 
+	protected PlayerSlapMainClass plugin; 
+	protected Logger logger; 
 	
 	public final String broadcastSlapMessage = "$Slapped was slapped by $Giver"; 
 	public final String personalSlapMessage = "You were slapped by $Giver. Respond with /playerslap <accept|deny>"; 
@@ -33,6 +33,15 @@ public class MessageSender {
 		}
 		else if (type.equalsIgnoreCase("incorrectslaptype")) {
 			sender.sendMessage(ChatColor.RED + "The specified slap type does not exist "); 
+		}
+		else if (type.equalsIgnoreCase("noslapworth")) {
+			sender.sendMessage(ChatColor.RED + "The specified slap type has no worth specified; a default of '1' has been assumed "); 
+		}
+		else if (type.equalsIgnoreCase("nopermission")) {
+			sender.sendMessage(ChatColor.RED + "You do not have permission to use this command "); 
+		}
+		else if (type.equalsIgnoreCase("exempt")) {
+			sender.sendMessage(ChatColor.RED + "This player is exempt from being slapped "); 
 		}
 	}
 }

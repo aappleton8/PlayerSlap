@@ -6,7 +6,6 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Logger;
 
-import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -19,7 +18,7 @@ import me.PlayerSlap.Listeners.PlayerListener;
 
 public class PlayerSlapMainClass extends JavaPlugin {
 	public static PlayerSlapMainClass plugin; 
-	public final Logger logger = Logger.getLogger("Minecraft"); 
+	protected final Logger logger = Logger.getLogger("Minecraft"); 
 	
 	public YamlFiles yc = new YamlFiles(this, logger, "config.yml", "config.txt");  
 	public YamlFiles yd = new YamlFiles(this, logger, "players.yml", "players.txt");  
@@ -58,9 +57,5 @@ public class PlayerSlapMainClass extends JavaPlugin {
 			}
 		}
 		logger.info(formattedPluginName + descriptionFile.getName() + " " + descriptionFile.getVersion() + " has been enabled "); 
-	}
-	
-	public void noPermission(CommandSender s) {
-		s.sendMessage("You do not have permission to use this command "); 
 	}
 }

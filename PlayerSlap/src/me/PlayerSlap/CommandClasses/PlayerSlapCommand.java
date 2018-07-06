@@ -9,8 +9,8 @@ import org.bukkit.command.CommandSender;
 import me.PlayerSlap.MainClasses.PlayerSlapMainClass;
 
 public class PlayerSlapCommand implements CommandExecutor {
-	public PlayerSlapMainClass plugin; 
-	public Logger logger; 
+	protected PlayerSlapMainClass plugin; 
+	protected Logger logger; 
 	
 	public PlayerSlapCommand(PlayerSlapMainClass pluginInstance, Logger loggerInstance) {
 		plugin = pluginInstance; 

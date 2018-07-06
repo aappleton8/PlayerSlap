@@ -1,8 +1,10 @@
 slapself: true
 slapdefault: 1
+incrementonslapall: true
 slaptypes:
-  1:
+  '1':
     health: 3
+    worth: 1
     mustaccept: true
     lighning: true
     smoke: 30
@@ -13,8 +15,9 @@ slaptypes:
     mobs:
       ZOMBIE: 5
       SKELETON: 1
-  2:
+  '2':
     health: 5
+    worth: 3
     mustaccept: true
     lightning: true
     smoke: 50

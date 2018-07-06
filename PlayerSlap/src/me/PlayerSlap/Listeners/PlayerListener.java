@@ -13,8 +13,8 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import me.PlayerSlap.MainClasses.PlayerSlapMainClass;
 
 public class PlayerListener implements Listener {
-	public PlayerSlapMainClass plugin; 
-	public Logger logger; 
+	protected PlayerSlapMainClass plugin; 
+	protected Logger logger; 
 	
 	public PlayerListener(PlayerSlapMainClass pluginInstance, Logger loggerInstance) {
 		plugin = pluginInstance; 
