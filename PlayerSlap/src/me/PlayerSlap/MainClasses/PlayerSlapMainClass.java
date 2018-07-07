@@ -58,4 +58,12 @@ public class PlayerSlapMainClass extends JavaPlugin {
 		}
 		logger.info(formattedPluginName + descriptionFile.getName() + " " + descriptionFile.getVersion() + " has been enabled "); 
 	}
+	
+	public void addPlayer(String playerName, String sid) {
+		yd.configuration.createSection("players." + sid); 
+		yd.configuration.set("players." + sid + ".exempt", false); 
+		yd.configuration.set("players." + sid + ".times", 0); 
+		yd.configuration.set("players." + sid + ".username", playerName); 
+		yd.configuration.set("players." + sid + ".mustaccept", false);
+	}
 }

@@ -19,31 +19,31 @@ public class SlapAllCommand implements CommandExecutor {
 	public SlapAllCommand(PlayerSlapMainClass pluginInstance, Logger loggerInstance) {
 		plugin = pluginInstance; 
 		logger = loggerInstance; 
-		dep = new CommandDependencies(pluginInstance, loggerInstance); 
+		dep = new CommandDependencies(pluginInstance, loggerInstance, true); 
 	}
 
 	@Override
 	public boolean onCommand(CommandSender s, Command c, String l, String[] args) {
 		String type = null; 
-		if (args.length > 1) {
+		if (args.length > 2) {
 			return false; 
 		}
-		else if (args.length == 1) {
-			type = args[0]; 
-		}
-		else {
-			type = dep.getDefaultType(); 
-			if (type == null) {
-				plugin.ms.sendMessage(s, "noslaptype", null); 
-				return false; 
-			}
-		}
+		type = dep.checkType(s, (args.length == 1) ? args[0] : null); 
 		Boolean noWorth = false; 
 		if (plugin.yc.configuration.contains("incrementonslapall") == true) {
 			noWorth = plugin.yc.configuration.getBoolean("incrementonslapall"); 
 		}
 		else {
-			plugin.ms.sendMessage(s, "noslapworth", null); 
+			plugin.ms.sendMessage(s, "noslapworthonall", null); 
+		}
+		if (args.length == 2) {
+			if (args[2].equalsIgnoreCase("noworth")) {
+				noWorth = false; 
+			}
+			else {
+				plugin.ms.sendMessage(s, "noworthargumentwrong", null); 
+				return false; 
+			}
 		}
 		if (s.hasPermission("playerslap.slap.all") == false) {
 			plugin.ms.sendMessage(s, "nopermission", null); 
@@ -51,8 +51,8 @@ public class SlapAllCommand implements CommandExecutor {
 		else {
 			Collection<? extends Player> onlinePlayers = Bukkit.getServer().getOnlinePlayers(); 
 			for (Player player : onlinePlayers) {
-				if (player.hasPermission("playerslap.noslap") == false) {
-					//dep.slapPlayer(s, player, type, noWorth, true); 
+				if (dep.checkPlayerInformation(s, player, type) == true) {
+					dep.sendSlap(s, player, type, noWorth); 
 				}
 			}
 		}

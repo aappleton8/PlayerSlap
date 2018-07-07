@@ -35,6 +35,9 @@ This plugin has the following commands:
  - playerslap.config.save - Let a player save the config 
  - playerslap.config.reload - Let a player reload the config 
  - playerslap.config.set.* - Let a player set basic config file options 
+ - playerslap.type.* - Let a player use all slap types 
+ - playerslap.type.worth.* - Let a player use all slap types with their specified worths 
+ - playerslap.type.noworth.* - Let a player use all slap types with no worth 
 
 ## Configs: 
 This plugin uses the following config files: 

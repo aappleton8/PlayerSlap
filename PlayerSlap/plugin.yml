@@ -7,12 +7,12 @@ database: false
 commands:
   slap:
     description: Command to slap a player 
-    usage: /slap [<player>] [<type>]
+    usage: /slap [<player>] [<type>] [noworth]
     aliases: [sl, hit]
     permission-message: You do not have the required permissions to perform this command 
   slapall:
     description: Command to slap every layer 
-    usage: /slapall [<type>]
+    usage: /slapall [<type>] [noworth]
     aliases: [sla, slap-all]
     permission-message: You do not have the required permissions to perform this command 
   playerslap:
@@ -36,6 +36,7 @@ permissions:
       playerslap.noslap.protect: true
       playerslap.see.*: true
       playerslap.config.*: true
+      playerslap.type.*: true
   playerslap.slap.all:
     description: Give the player permission to slap every player 
     default: op
@@ -108,4 +109,16 @@ permissions:
     default: op
   playerslap.config.set.*:
     description: Set basic config file options 
+    default: op
+  playerslap.type.*:
+    description: Use every slap 
+    default: op
+    children:
+      playerslap.type.worth.*: true
+      playerslap.type.noworth.*: true
+  playerslap.type.worth.*:
+    description: Use every slap with its specified 'worth' value 
+    default: op
+  playerslap.type.noworth.*:
+    description: USe every slap with a 'worth' value of 0
     default: op

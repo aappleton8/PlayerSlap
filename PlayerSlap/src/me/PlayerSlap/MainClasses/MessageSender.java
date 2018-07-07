@@ -22,7 +22,7 @@ public class MessageSender {
 		if (type.equalsIgnoreCase("custom")) {
 			sender.sendMessage(message); 
 		}
-		else if (type.equalsIgnoreCase("mustbeplayer")) {
+		else if (type.equalsIgnoreCase("mustbeplayer") || type.equalsIgnoreCase("mustbeaplayer")) {
 			sender.sendMessage(ChatColor.RED + "You must be a player to use this command "); 
 		}
 		else if (type.equalsIgnoreCase("configdisabled")) {
@@ -30,6 +30,7 @@ public class MessageSender {
 		}
 		else if (type.equalsIgnoreCase("noslaptype")) {
 			sender.sendMessage(ChatColor.RED + "No slap type is specified in the command and no default type could be found "); 
+			logger.warning(plugin.formattedPluginName + "No default slap type could be found "); 
 		}
 		else if (type.equalsIgnoreCase("incorrectslaptype")) {
 			sender.sendMessage(ChatColor.RED + "The specified slap type does not exist "); 
@@ -37,11 +38,30 @@ public class MessageSender {
 		else if (type.equalsIgnoreCase("noslapworth")) {
 			sender.sendMessage(ChatColor.RED + "The specified slap type has no worth specified; a default of '1' has been assumed "); 
 		}
+		else if (type.equalsIgnoreCase("noslapworthonall")) {
+			sender.sendMessage(ChatColor.RED + "It could not be determined whether to add slaps performed using the /slapall command to players' totals; yes has been assumed"); 
+			logger.warning("It could not be determined whether to add slaps performed using the /slapall command to players' totals; yes has been assumed"); 
+		}
 		else if (type.equalsIgnoreCase("nopermission")) {
 			sender.sendMessage(ChatColor.RED + "You do not have permission to use this command "); 
 		}
 		else if (type.equalsIgnoreCase("exempt")) {
 			sender.sendMessage(ChatColor.RED + "This player is exempt from being slapped "); 
+		}
+		else if (type.equalsIgnoreCase("configerror")) {
+			sender.sendMessage(ChatColor.RED + "There is an error with the " + message); 
+			logger.warning(plugin.formattedPluginName + "There is an error with the " + message); 
+		}
+		else if (type.equalsIgnoreCase("incorrectdefaultslaptype")) {
+			sender.sendMessage(ChatColor.RED + "No slap type was provided and the default slap type does not exist "); 
+			logger.warning(plugin.formattedPluginName + "The default slap type does not exist "); 
+		}
+		else if (type.equalsIgnoreCase("noworthargumentwrong")) {
+			sender.sendMessage(ChatColor.RED + "The last argument (which is optional) must be 'noworth' if it is supplied "); 
+		}
+		else {
+			sender.sendMessage(ChatColor.RED + "There was an error when trying to send you an error message "); 
+			logger.warning(plugin.formattedPluginName + "There was an error when processing an error message "); 
 		}
 	}
 }

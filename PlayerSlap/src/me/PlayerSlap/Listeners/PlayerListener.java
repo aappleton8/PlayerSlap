@@ -35,23 +35,17 @@ public class PlayerListener implements Listener {
 		String sid = pid.toString(); 
 		if (plugin.yd.configuration.contains("players." + sid)) {
 			plugin.yd.configuration.set("players." + sid + ".username", event.getPlayer().getName()); 
-			if (plugin.yd.configuration.getBoolean("players." + sid + ".exempt") == true) {
-				if (plugin.yd.configuration.getBoolean("players." + sid + ".mustaccept") == true) {
+			if (plugin.yd.configuration.getBoolean("players." + sid + ".mustaccept") == true) {
+				if (plugin.yd.configuration.getBoolean("players." + sid + ".exempt") == true) {
 					plugin.yd.configuration.set("players." + sid + ".mustaccept", false); 
 				}
-			}
-			else {
-				if (plugin.yd.configuration.getBoolean("players." + sid + ".mustaccept") == true) {
+				else {
 					plugin.needAcceptPlayers.add(pid); 
 				}
 			}
 		}
 		else {
-			plugin.yd.configuration.createSection("players." + sid); 
-			plugin.yd.configuration.set("players." + sid + ".exempt", false); 
-			plugin.yd.configuration.set("players." + sid + ".times", 0); 
-			plugin.yd.configuration.set("players." + sid + ".username", event.getPlayer().getName()); 
-			plugin.yd.configuration.set("players." + sid + ".mustaccept", false);
+			plugin.addPlayer(event.getPlayer().getName(), sid); 
 		}
 		plugin.yd.save(); 
 	}

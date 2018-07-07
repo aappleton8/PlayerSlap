@@ -2,6 +2,7 @@ package me.PlayerSlap.CommandClasses;
 
 import java.util.logging.Logger;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -17,7 +18,7 @@ public class SlapCommand implements CommandExecutor {
 	public SlapCommand(PlayerSlapMainClass pluginInstance, Logger loggerInstance) {
 		plugin = pluginInstance; 
 		logger = loggerInstance; 
-		dep = new CommandDependencies(pluginInstance, loggerInstance); 
+		dep = new CommandDependencies(pluginInstance, loggerInstance, false); 
 	}
 	
 	private Boolean slapSelf(CommandSender s) {
@@ -38,22 +39,28 @@ public class SlapCommand implements CommandExecutor {
 	
 	private Boolean slapPlayer(CommandSender s, String[] args) {
 		String playerName = args[0]; 
-		String type = null; 
-		if (args.length == 2) {
-			type = args[1]; 
-		}
-		else {
-			type = dep.getDefaultType(); 
-			if (type == null) {
-				plugin.ms.sendMessage(s, "noslaptype", null); 
-				return false; 
-			}
-		}
+		String type = dep.checkType(s, (args.length >= 2) ? args[1] : null); 
 		if (!((s.hasPermission("playerslap.slap.others")) || (s.hasPermission("playerslap.slap") && (s.getName().equalsIgnoreCase(playerName))))) {
 			plugin.ms.sendMessage(s, "nopermission", null); 
 			return true; 
 		}
-		//dep.slapPlayer(s, playerName, type, false, false); 
+		Boolean canSlap = dep.checkPlayerInformation(s, playerName, type); 
+		if (canSlap == false) {
+			return true; 
+		}
+		@SuppressWarnings("deprecation")
+		Player player = Bukkit.getPlayer(playerName); 
+		Boolean noWorth = false; 
+		if (args.length == 3) {
+			if (args[2].equalsIgnoreCase("noworth")) {
+				noWorth = true; 
+			}
+			else {
+				plugin.ms.sendMessage(s, "noworthargumentwrong", null); 
+				return false; 
+			}
+		}
+		dep.sendSlap(s, player, type, noWorth); 
 		return true; 
 	}
 	
@@ -62,7 +69,7 @@ public class SlapCommand implements CommandExecutor {
 		if (args.length == 0) {
 			return slapSelf(s); 
 		}
-		else if (args.length < 3) {
+		else if (args.length < 4) {
 			return slapPlayer(s, args);  
 		}
 		else {
