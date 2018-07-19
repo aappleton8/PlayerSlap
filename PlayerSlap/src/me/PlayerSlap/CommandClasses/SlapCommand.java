@@ -40,7 +40,10 @@ public class SlapCommand implements CommandExecutor {
 	private Boolean slapPlayer(CommandSender s, String[] args) {
 		String playerName = args[0]; 
 		String type = dep.checkType(s, (args.length >= 2) ? args[1] : null); 
-		if (!((s.hasPermission("playerslap.slap.others")) || (s.hasPermission("playerslap.slap") && (s.getName().equalsIgnoreCase(playerName))))) {
+		if (type == null) {
+			return true; 
+		}
+		else if (!((s.hasPermission("playerslap.slap.others")) || (s.hasPermission("playerslap.slap") && (s.getName().equalsIgnoreCase(playerName))))) {
 			plugin.ms.sendMessage(s, "nopermission", null); 
 			return true; 
 		}

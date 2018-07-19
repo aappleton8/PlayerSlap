@@ -30,6 +30,8 @@ public class PlayerSlapMainClass extends JavaPlugin {
 	public String formattedPluginName; 
 	public List<UUID> needAcceptPlayers =  new ArrayList<>(); 
 	
+	public final int defaultSlapWorth = 1; 
+	
 	@Override
 	public void onDisable() {
 		logger.info(formattedPluginName + descriptionFile.getName() + " " + descriptionFile.getVersion() + " has been disabled ");  

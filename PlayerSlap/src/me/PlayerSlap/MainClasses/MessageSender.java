@@ -36,11 +36,14 @@ public class MessageSender {
 			sender.sendMessage(ChatColor.RED + "The specified slap type does not exist "); 
 		}
 		else if (type.equalsIgnoreCase("noslapworth")) {
-			sender.sendMessage(ChatColor.RED + "The specified slap type has no worth specified; a default of '1' has been assumed "); 
+			sender.sendMessage(ChatColor.RED + "The specified slap type has no worth specified; a default of '" + Integer.toString(plugin.defaultSlapWorth) + "' has been assumed "); 
 		}
 		else if (type.equalsIgnoreCase("noslapworthonall")) {
 			sender.sendMessage(ChatColor.RED + "It could not be determined whether to add slaps performed using the /slapall command to players' totals; yes has been assumed"); 
 			logger.warning("It could not be determined whether to add slaps performed using the /slapall command to players' totals; yes has been assumed"); 
+		}
+		else if (type.equalsIgnoreCase("invalidgivenslapworth")) {
+			sender.sendMessage(ChatColor.RED + "The value you gave as the worth of the slap could not be parsed as an integer; the slap's default worth has been assumed "); 
 		}
 		else if (type.equalsIgnoreCase("nopermission")) {
 			sender.sendMessage(ChatColor.RED + "You do not have permission to use this command "); 

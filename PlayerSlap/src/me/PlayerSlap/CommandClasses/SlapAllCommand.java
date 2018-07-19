@@ -24,11 +24,13 @@ public class SlapAllCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender s, Command c, String l, String[] args) {
-		String type = null; 
 		if (args.length > 2) {
 			return false; 
 		}
-		type = dep.checkType(s, (args.length == 1) ? args[0] : null); 
+		String type = dep.checkType(s, (args.length == 1) ? args[0] : null); 
+		if (type == null) {
+			return true; 
+		}
 		Boolean noWorth = false; 
 		if (plugin.yc.configuration.contains("incrementonslapall") == true) {
 			noWorth = plugin.yc.configuration.getBoolean("incrementonslapall"); 

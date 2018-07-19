@@ -57,10 +57,15 @@ class CommandDependencies {
 	}
 	
 	private String formatMessages(String message, String defaultMessage, String giver, String receiver) {
-		return message.replaceAll("$Default", defaultMessage)
-				.replaceAll("$Giver", giver)
-				.replaceAll("$Slapped", receiver)
-				.replaceAll("$None", ""); 
+		if (message != null) {
+			return message.replaceAll("$Default", defaultMessage)
+					.replaceAll("$Giver", giver)
+					.replaceAll("$Slapped", receiver)
+					.replaceAll("$None", ""); 
+		}
+		else {
+			return "";  
+		}
 	}
 	
 	Boolean checkPlayerInformation(CommandSender s, String playerName, String type) {
@@ -117,9 +122,30 @@ class CommandDependencies {
 		return true; 
 	}
 	
+	int checkSlapWorth(CommandSender s, String type) {
+		return checkSlapWorth(s, type, null); 
+	}
+	
+	int checkSlapWorth(CommandSender s, String type, String rawWorth) {
+		int worth = plugin.defaultSlapWorth; 
+		if (rawWorth == null) {
+			
+		}
+		else {
+			try {
+				worth = Integer.parseInt(rawWorth); 
+			}
+			catch (IllegalArgumentException e) {
+				plugin.ms.sendMessage(s, "noslapworth", null); 
+			}
+		}
+		
+		return worth; 
+	}
+	
 	// This function slaps the player; it returns true for a success and false for a failure 
 	Boolean sendSlap(CommandSender s, Player player, String type, Boolean noWorth) {
-		int worth = 0; 
+		int worth = plugin.defaultSlapWorth; 
 		if ((noWorth == false) && (plugin.yc.configuration.contains("slaptypes." + type + ".worth") == true)) {
 			try {
 				worth = Integer.valueOf(plugin.yc.configuration.getInt("slaptypes." + type + ".worth")); 
@@ -153,7 +179,7 @@ class CommandDependencies {
 			if (damage > 0) {
 				double health = player.getHealth(); 
 				player.setHealth(health - damage); 
-				if (player.getHealth() == 0 && deathSlapMessage != "") {
+				if ((player.getHealth() <= 0) && (deathSlapMessage != "")) {
 					Bukkit.broadcast(ChatColor.RED + deathSlapMessage, "playerslap.see.slap"); 
 				}
 			}
@@ -190,7 +216,9 @@ class CommandDependencies {
 			}
 		}
 		player.sendMessage(ChatColor.RED + personalSlapMessage); 
-		Bukkit.broadcast(ChatColor.RED + broadcastSlapMessage, "playerslap.see.slap"); 
+		if (reducedCheck == false) {
+			Bukkit.broadcast(ChatColor.RED + broadcastSlapMessage, "playerslap.see.slap"); 
+		}
 		int times = plugin.yd.configuration.getInt("players." + player.getUniqueId() + ".times"); 
 		plugin.yd.configuration.set("players." + player.getUniqueId().toString() + ".times", times + worth); 
 		plugin.yd.configuration.set("players." + player.getUniqueId().toString() + ".username", player.getName()); 
