@@ -59,8 +59,8 @@ public class MessageSender {
 			sender.sendMessage(ChatColor.RED + "No slap type was provided and the default slap type does not exist "); 
 			logger.warning(plugin.formattedPluginName + "The default slap type does not exist "); 
 		}
-		else if (type.equalsIgnoreCase("noworthargumentwrong")) {
-			sender.sendMessage(ChatColor.RED + "The last argument (which is optional) must be 'noworth' if it is supplied "); 
+		else if (type.equalsIgnoreCase("noneedaccept")) {
+			sender.sendMessage(ChatColor.GREEN + "You have no need to accept any slaps "); 
 		}
 		else {
 			sender.sendMessage(ChatColor.RED + "There was an error when trying to send you an error message "); 

@@ -12,6 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import me.PlayerSlap.CommandClasses.ForceSlapCommand;
 import me.PlayerSlap.CommandClasses.PlayerSlapCommand;
+import me.PlayerSlap.CommandClasses.SlapAcknowledgeCommand;
 import me.PlayerSlap.CommandClasses.SlapAllCommand;
 import me.PlayerSlap.CommandClasses.SlapCommand;
 import me.PlayerSlap.Listeners.PlayerListener;
@@ -43,10 +44,7 @@ public class PlayerSlapMainClass extends JavaPlugin {
 		pm.registerEvents(pl, this); 
 		descriptionFile = getDescription(); 
 		formattedPluginName = "[" + descriptionFile.getName() + "] "; 
-		getCommand("slap").setExecutor(new SlapCommand(plugin, logger));  
-		getCommand("slapall").setExecutor(new SlapAllCommand(plugin, logger)); 
-		getCommand("playerslap").setExecutor(new PlayerSlapCommand(plugin, logger)); 
-		getCommand("forceslap").setExecutor(new ForceSlapCommand(plugin, logger)); 
+		setCommandExecutors(); 
 		Set<String> UUIDs = yd.configuration.getConfigurationSection("players").getKeys(false); 
 		for (String i : UUIDs) {
 			try {
@@ -59,6 +57,14 @@ public class PlayerSlapMainClass extends JavaPlugin {
 			}
 		}
 		logger.info(formattedPluginName + descriptionFile.getName() + " " + descriptionFile.getVersion() + " has been enabled "); 
+	}
+	
+	private void setCommandExecutors() {
+		getCommand("slap").setExecutor(new SlapCommand(this, logger));  
+		getCommand("slapall").setExecutor(new SlapAllCommand(this, logger)); 
+		getCommand("playerslap").setExecutor(new PlayerSlapCommand(this, logger)); 
+		getCommand("forceslap").setExecutor(new ForceSlapCommand(this, logger)); 
+		getCommand("slapacknowledge").setExecutor(new SlapAcknowledgeCommand(this, logger)); 
 	}
 	
 	public void addPlayer(String playerName, String sid) {

@@ -1,11 +1,13 @@
 # slapself (Boolean) - Set whether people can slap themselves or not 
 # slapdefault (String) - The default slap type 
 # incrementonslapall (Boolean) - Increment the recorded slap times for each player when all players are slapped 
-# slaptypes (List) - The definition of the slap types 
+# slaptypes (Section) - The definition of the slap types 
 #   '1' (Section) - The name of a slap type 
 #       health (integer) - The health removed when a player is slapped 
 #       worth (integer) - The amount by which each player's recorded number of slaps is incremented when this type of slap is used 
-#       mustaccept (true/false) - Whether the player must accept the slap or not 
+#       followup (Section) - Actions which follow the slap 
+#         isheld (true/false) - Whether the player can move before accepting the slap or not 
+#         mustaccept (true/false) - Whether the player must accept the slap or not 
 #       lighning (true/false) - Whether the player should be struck by lightning or not 
 #       smoke (integer) - The radius of the smoke effect (0 for no smoke) 
 #       messages (Section): | $Giver becomes the slap giver; $Slapped become the person slapped; $Default becomes the default messages; $None for nothing  

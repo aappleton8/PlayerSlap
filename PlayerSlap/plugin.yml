@@ -7,23 +7,28 @@ database: false
 commands:
   slap:
     description: Command to slap a player 
-    usage: /slap [<player>] [<type>] [noworth]
+    usage: /slap [<player>] [<type>] [<worth>]
     aliases: [sl, hit]
     permission-message: You do not have the required permissions to perform this command 
   slapall:
     description: Command to slap every layer 
-    usage: /slapall [<type>] [noworth]
+    usage: /slapall [<type>] [<worth>]
     aliases: [sla, slap-all]
-    permission-message: You do not have the required permissions to perform this command 
-  playerslap:
-    description: The base informative command for the PlayerSlap plugin 
-    usage: /playerslap accept|deny|help|version|{times <player>}|{config save|reload|{set <options>}}
-    aliases: [ps, plasl]
     permission-message: You do not have the required permissions to perform this command 
   forceslap:
     description: Slap Players with the playerslap.noslap permission 
-    usage: /forceslap <player> [<type>]
+    usage: /forceslap <player> [<type>] [<worth>]
     aliases: [fs, fosla]
+    permission-message: You do not have the required permissions to perform this command 
+  slapacknowledge:
+    description: Acknowledge that you have been slapped if someone slaps you 
+    usage: /slapacknowledge accept|deny [<player>] 
+    aliases: [slapack, slac, slc]
+    permission-message: You do not have the required permissions to perform this command 
+  playerslap:
+    description: The base informative command for the PlayerSlap plugin 
+    usage: /playerslap help|version|{times <player>}|{config save|reload|{set <options>}}
+    aliases: [ps, plasl]
     permission-message: You do not have the required permissions to perform this command 
 permissions:
   playerslap.*:
@@ -84,12 +89,16 @@ permissions:
     children:
       playerslap.see.slap: true
       playerslap.see.noslap: true
+      playerslap.see.response: true
       playerslap.see.config: true
   playerslap.see.slap:
     description: Give the player permission to see when a player has been slapped
     default: op
   playerslap.see.noslap:
     description: Give the player permission to see when a player tried to slap a player with the playerslap.noslap permission
+    default: op
+  playerslap.see.response:
+    description: Give the player permission to see a player's response to a slap 
     default: op
   playerslap.see.config:
     description: Give the player permission to see config save, set and reload messages 

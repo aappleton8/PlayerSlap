@@ -7,6 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
@@ -22,10 +23,25 @@ public class PlayerListener implements Listener {
 	}
 	
 	@EventHandler (ignoreCancelled = true, priority = EventPriority.NORMAL) 
+	public void onPlayerCommand(PlayerCommandPreprocessEvent event) {
+		if (plugin.needAcceptPlayers.contains(event.getPlayer().getUniqueId()) == true) {
+			String[] command = event.getMessage().split(" "); 
+			if ((command.length == 2) || (command.length == 3)) {
+				if ((command[0].equalsIgnoreCase("slc")) || (command[0].equalsIgnoreCase("slac")) || (command[0].equalsIgnoreCase("slapack")) || (command[0].equalsIgnoreCase("slapacknowledge"))) {
+					if (!((command[1].equalsIgnoreCase("accept")) || (command[1].equalsIgnoreCase("deny")))) {
+						event.setCancelled(true); 
+						event.getPlayer().sendMessage(ChatColor.RED + "You cannot use commands other than the '/slapacknowledge' command until you acknowledge the slap ");
+					}
+				}
+			}
+		}
+	}
+	
+	@EventHandler (ignoreCancelled = true, priority = EventPriority.NORMAL) 
 	public void onPlayerMove(PlayerMoveEvent event) {
 		if (plugin.needAcceptPlayers.contains(event.getPlayer().getUniqueId()) == true) {
 			event.setCancelled(true); 
-			event.getPlayer().sendMessage(ChatColor.RED + "You cannot move until you accept the slap (/playerslap accept) "); 
+			event.getPlayer().sendMessage(ChatColor.RED + "You cannot move until you acknowledge the slap "); 
 		}
 	}
 	

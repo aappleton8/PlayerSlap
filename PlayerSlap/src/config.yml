@@ -5,12 +5,14 @@ slaptypes:
   '1':
     health: 3
     worth: 1
-    mustaccept: true
+    followup:
+      isheld: true
+      mustaccept: true
     lighning: true
     smoke: 30
     messages:
       broadcast: $Giver slapped $Slapped. 
-      personal: $Giver
+      personal: $Giver slapped you. 
       death: $Default
     mobs:
       ZOMBIE: 5
@@ -18,7 +20,9 @@ slaptypes:
   '2':
     health: 5
     worth: 3
-    mustaccept: true
+    followup:
+      isheld: false
+      mustaccept: false
     lightning: true
     smoke: 50
     messages:

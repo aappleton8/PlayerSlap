@@ -18,7 +18,7 @@ public class PlayerSlapCommand implements CommandExecutor {
 	}
 
 	@Override
-	public boolean onCommand(CommandSender arg0, Command arg1, String arg2, String[] arg3) {
+	public boolean onCommand(CommandSender s, Command c, String l, String[] args) {
 		// TODO Auto-generated method stub
 		return false;
 	}

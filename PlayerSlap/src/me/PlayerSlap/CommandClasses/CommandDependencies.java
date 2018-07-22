@@ -1,5 +1,6 @@
 package me.PlayerSlap.CommandClasses;
 
+import java.util.Collection;
 import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -23,6 +24,46 @@ class CommandDependencies {
 		plugin = pluginInstance; 
 		logger = loggerInstance; 
 		reducedCheck = reducedCheckValue; 
+	}
+	
+	Boolean slapIndividualPlayer(CommandSender s, String[] args, Boolean force) {
+		String playerName = args[0]; 
+		String type = checkType(s, (args.length >= 2) ? args[1] : null); 
+		if (type == null) {
+			return true; 
+		}
+		Boolean canSlap = checkPlayerInformation(s, playerName, type, force); 
+		if (canSlap == false) {
+			return true; 
+		}
+		@SuppressWarnings("deprecation")
+		Player player = Bukkit.getPlayer(playerName); 
+		int worth = checkSlapWorth(s, type, (args.length >= 3) ? args[2] : null); 
+		sendSlap(s, player, type, worth); 
+		return true; 
+	}
+	
+	Boolean slapMultiplePlayers(CommandSender s, String[] args, Boolean force) {
+		String type = checkType(s, (args.length == 1) ? args[0] : null); 
+		if (type == null) {
+			return true; 
+		}
+		int worth = checkSlapWorth(s, type, (args.length >= 2) ? args[1] : null); 
+		if (plugin.yc.configuration.contains("incrementonslapall") == true) {
+			if (plugin.yc.configuration.getBoolean("incrementonslapall") == false) {
+				worth = 0; 
+			} 
+		}
+		else {
+			plugin.ms.sendMessage(s, "noslapworthonall", null); 
+		}
+		Collection<? extends Player> onlinePlayers = Bukkit.getServer().getOnlinePlayers(); 
+		for (Player player : onlinePlayers) {
+			if (checkPlayerInformation(s, player, type, force) == true) {
+				sendSlap(s, player, type, worth); 
+			}
+		}
+		return true; 
 	}
 	
 	String checkType(CommandSender s, String type) {
@@ -68,7 +109,7 @@ class CommandDependencies {
 		}
 	}
 	
-	Boolean checkPlayerInformation(CommandSender s, String playerName, String type) {
+	Boolean checkPlayerInformation(CommandSender s, String playerName, String type, Boolean force) {
 		@SuppressWarnings("deprecation")
 		Player player = Bukkit.getPlayer(playerName); 
 		if (player == null) {
@@ -77,19 +118,18 @@ class CommandDependencies {
 			}
 			return false; 
 		}
-		return checkPlayerInformation(s, player, type); 
+		return checkPlayerInformation(s, player, type, force); 
 	}
 	
-	Boolean checkPlayerInformation(CommandSender s, Player player, String type) {
+	Boolean checkPlayerInformation(CommandSender s, Player player, String type, Boolean force) {
 		String playerName = player.getName(); 
 		UUID pid = player.getUniqueId(); 
 		String sid = pid.toString(); 
 		Set<String> players = plugin.yd.configuration.getConfigurationSection("players").getKeys(false); 
-		if (player.hasPermission("playerslap.noslap")) {
+		if (player.hasPermission("playerslap.noslap") && (force == false)) {
 			if (reducedCheck == false) {
 				if ((player.hasPermission("playerslap.noslap.protect")) && (s instanceof Player) && (s.hasPermission("playerslap.noslap") == false)) {
-					// Slap sending player 
-					
+					sendSlap(s, player, type, checkSlapWorth(s, type)); 
 				}
 				plugin.ms.sendMessage(s, "exempt", null); 
 			}
@@ -127,36 +167,31 @@ class CommandDependencies {
 	}
 	
 	int checkSlapWorth(CommandSender s, String type, String rawWorth) {
+		Boolean haveValue = false; 
 		int worth = plugin.defaultSlapWorth; 
-		if (rawWorth == null) {
-			
-		}
-		else {
+		if (rawWorth != null) {
 			try {
 				worth = Integer.parseInt(rawWorth); 
+				haveValue = true; 
 			}
 			catch (IllegalArgumentException e) {
+				plugin.ms.sendMessage(s, "invalidgivenslapworth", null); 
+			}
+		}
+		if (haveValue != true) {
+			if (plugin.yc.configuration.contains("slaptypes." + type + ".worth")) {
+				worth = plugin.yc.configuration.getInt("slaptypes." + type + ".worth"); 
+				haveValue = true; 
+			}
+			else {
 				plugin.ms.sendMessage(s, "noslapworth", null); 
 			}
 		}
-		
 		return worth; 
 	}
 	
 	// This function slaps the player; it returns true for a success and false for a failure 
-	Boolean sendSlap(CommandSender s, Player player, String type, Boolean noWorth) {
-		int worth = plugin.defaultSlapWorth; 
-		if ((noWorth == false) && (plugin.yc.configuration.contains("slaptypes." + type + ".worth") == true)) {
-			try {
-				worth = Integer.valueOf(plugin.yc.configuration.getInt("slaptypes." + type + ".worth")); 
-			}
-			catch (IllegalArgumentException e) {
-				plugin.ms.sendMessage(s, "noslapworth", null); 
-			}
-		}
-		else {
-			plugin.ms.sendMessage(s, "noslapworth", null); 
-		}
+	void sendSlap(CommandSender s, Player player, String type, int worth) {
 		String broadcastSlapMessage = plugin.ms.broadcastSlapMessage; 
 		String personalSlapMessage = plugin.ms.personalSlapMessage; 
 		String deathSlapMessage = plugin.ms.deathSlapMessage; 
@@ -194,8 +229,8 @@ class CommandDependencies {
 				player.getWorld().playEffect(player.getLocation(), Effect.SMOKE, (plugin.yc.configuration.getInt("slaptypes." + type + ".smoke"))); 
 			}
 		}
-		if (plugin.yc.configuration.contains("slaptypes." + type + ".mustaccept") == true) {
-			if (plugin.yc.configuration.getBoolean("slaptypes." + type + ".mustaccept") == true) {
+		if (plugin.yc.configuration.contains("slaptypes." + type + ".followup.isheld") == true) {
+			if (plugin.yc.configuration.getBoolean("slaptypes." + type + ".followup.isheld") == true) {
 				plugin.yd.configuration.set("players." + player.getUniqueId().toString() + ".mustaccept", true); 
 				if (plugin.needAcceptPlayers.contains(player.getUniqueId()) == false) {
 					plugin.needAcceptPlayers.add(player.getUniqueId()); 
@@ -224,6 +259,5 @@ class CommandDependencies {
 		plugin.yd.configuration.set("players." + player.getUniqueId().toString() + ".username", player.getName()); 
 		plugin.yc.save(); 
 		plugin.yd.save(); 
-		return true; 
 	}
 }
