@@ -1,19 +1,27 @@
-# slapself (Boolean) - Set whether people can slap themselves or not 
-# slapdefault (String) - The default slap type 
-# incrementonslapall (Boolean) - Increment the recorded slap times for each player when all players are slapped 
-# slaptypes (Section) - The definition of the slap types 
-#   '1' (Section) - The name of a slap type 
-#       health (integer) - The health removed when a player is slapped 
-#       worth (integer) - The amount by which each player's recorded number of slaps is incremented when this type of slap is used 
-#       followup (Section) - Actions which follow the slap 
-#         isheld (true/false) - Whether the player can move before accepting the slap or not 
-#         mustaccept (true/false) - Whether the player must accept the slap or not 
-#       lighning (true/false) - Whether the player should be struck by lightning or not 
-#       smoke (integer) - The radius of the smoke effect (0 for no smoke) 
-#       messages (Section): | $Giver becomes the slap giver; $Slapped become the person slapped; $Default becomes the default messages; $None for nothing  
-#           broadcast (String): $Giver slapped $Slapped - The message broadcast to the server 
-#           personal (String): You were slapped by $Giver - The message sent to the slapped player 
-#           death (String): $Default - The addition message broadcast if the player is slapped to death 
-#      mobs (Section) - The mobs to spawn near the player (ENTITYTYPE: integer) 
+# config.yml - this file controls the general settings and the types of slaps 
+# An explanation of the possible fields of this file is given below 
+#
+# slapself (boolean): - Set whether people can slap themselves or not 
+# slapdefault (String): - The default slap type 
+# incrementonslapall (boolean): - Increment the recorded slap times for each player when all players are slapped 
+# messages (Section): - Messages sent when someone is slapped 
+#   accept (string): - The message broadcast when a player accepts a slap ($Giver is unavailable; $Type is unavailable [explained further on]) 
+#   releasebroadcast (string): - The message broadcast when a player is released from a permanent slap ($Type is unavailable)
+#   releasepersonal (string): - The message sent to the slapped player when a player is released from a permanent slap ($Type is unavailable)
+#   noreleasepersonal (string): - The message sent to the slapped player when it tries to accept a permanent slap it has not been released from ($Giver is unavailable; $Type is unavailable)
+# slaptypes (Section): - The definition of the slap types 
+#   '1' (Section): - The name of a slap type 
+#       health (integer): - The health removed when a player is slapped 
+#       worth (integer): - The amount by which each player's recorded number of slaps is incremented when this type of slap is used 
+#       followup (Section): - Actions which follow the slap 
+#         permenant (boolean): - Whether the player can accept the slap before being released or not 
+#         mustaccept (boolean): - Whether the player must accept the slap before being able to move again or not 
+#       lightning (boolean): - Whether the player should be struck by lightning or not 
+#       smoke (integer): - The radius of the smoke effect (0 for no smoke) 
+#       messages (Section): - Slap-specific messages sent when someone is slapped | $Giver becomes the slap giver or the release giver; $Slapped becomes the person slapped; $Default becomes the default messages; $None becomes nothing; $Unknown becomes unknown; $Type becomes the slap type; $Permanent becomes permanent for a permanent slap and nothing otherwise   
+#           slapbroadcast (string): - The message broadcast to the server 
+#           slappersonal (string): - The message sent to the slapped player 
+#           death (string): - The additional message broadcast if the player is slapped to death 
+#      mobs (Section): - The mobs to spawn near the player (ENTITYTYPE: integer) 
 #
 #

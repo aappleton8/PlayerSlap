@@ -1,18 +1,23 @@
 slapself: true
 slapdefault: 1
 incrementonslapall: true
+messages:
+  accept: $Default
+  releasebroadcast: $Default
+  releasepersonal: $Default
+  noreleasepersonal: $Default
 slaptypes:
   '1':
     health: 3
     worth: 1
     followup:
-      isheld: true
       mustaccept: true
-    lighning: true
+      permanent: false
+    lightning: true
     smoke: 30
     messages:
-      broadcast: $Giver slapped $Slapped. 
-      personal: $Giver slapped you. 
+      slapbroadcast: $Giver slapped $Slapped. 
+      slappersonal: $Giver slapped you. 
       death: $Default
     mobs:
       ZOMBIE: 5
@@ -21,8 +26,8 @@ slaptypes:
     health: 5
     worth: 3
     followup:
-      isheld: false
       mustaccept: false
+      permanent: false
     lightning: true
     smoke: 50
     messages:

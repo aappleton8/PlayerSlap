@@ -1,7 +1,6 @@
 package me.PlayerSlap.MainClasses;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -10,6 +9,7 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import javafx.util.Pair;
 import me.PlayerSlap.CommandClasses.ForceSlapCommand;
 import me.PlayerSlap.CommandClasses.PlayerSlapCommand;
 import me.PlayerSlap.CommandClasses.SlapAcknowledgeCommand;
@@ -29,7 +29,7 @@ public class PlayerSlapMainClass extends JavaPlugin {
 	
 	public PluginDescriptionFile descriptionFile; 
 	public String formattedPluginName; 
-	public List<UUID> needAcceptPlayers =  new ArrayList<>(); 
+	public HashMap<UUID, Pair<Boolean, Boolean>> needAcceptPlayers =  new HashMap<>(); 
 	
 	public final int defaultSlapWorth = 1; 
 	
@@ -48,8 +48,10 @@ public class PlayerSlapMainClass extends JavaPlugin {
 		Set<String> UUIDs = yd.configuration.getConfigurationSection("players").getKeys(false); 
 		for (String i : UUIDs) {
 			try {
-				if (yd.configuration.getBoolean("players." + i + ".mustaccept") == true) {
-					needAcceptPlayers.add(UUID.fromString(i)); 
+				Boolean mustAccept = yd.configuration.getBoolean("players." + i + ".currentslap.mustaccept"); 
+				Boolean isPermanent = yd.configuration.getBoolean("players." + i + ".currentslap.permenant"); 
+				if ((mustAccept == true) || (isPermanent == true)) {
+					needAcceptPlayers.put(UUID.fromString(i), new Pair<Boolean, Boolean>(mustAccept, isPermanent)); 
 				}
 			}
 			catch (NullPointerException e) {
@@ -64,7 +66,7 @@ public class PlayerSlapMainClass extends JavaPlugin {
 		getCommand("slapall").setExecutor(new SlapAllCommand(this, logger)); 
 		getCommand("playerslap").setExecutor(new PlayerSlapCommand(this, logger)); 
 		getCommand("forceslap").setExecutor(new ForceSlapCommand(this, logger)); 
-		getCommand("slapacknowledge").setExecutor(new SlapAcknowledgeCommand(this, logger)); 
+		getCommand("slapaccept").setExecutor(new SlapAcknowledgeCommand(this, logger)); 
 	}
 	
 	public void addPlayer(String playerName, String sid) {

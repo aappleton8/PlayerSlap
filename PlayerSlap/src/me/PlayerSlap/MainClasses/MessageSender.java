@@ -9,9 +9,14 @@ public class MessageSender {
 	protected PlayerSlapMainClass plugin; 
 	protected Logger logger; 
 	
-	public final String broadcastSlapMessage = "$Slapped was slapped by $Giver"; 
-	public final String personalSlapMessage = "You were slapped by $Giver. Respond with /playerslap <accept|deny>"; 
+	public final String unknownValue = "Unknown"; 
+	public final String broadcastSlapMessage = "$Slapped has been given a $Permanentslap by $Giver"; 
+	public final String personalSlapMessage = "You were slapped by $Giver"; 
 	public final String deathSlapMessage = "$Slapped was slapped to death"; 
+	public final String acceptSlapMessage = "$Slapped has accepted a slap"; 
+	public final String broadcastReleaseMessage = "$Slapped has been released by $Giver"; 
+	public final String personalReleaseMessage = "You have been released by $Giver"; 
+	public final String personalNoReleaseMessage = "You have not yet been released from this slap"; 
 	
 	public MessageSender(PlayerSlapMainClass pluginInstance, Logger loggerInstance) {
 		plugin = pluginInstance; 
@@ -60,7 +65,10 @@ public class MessageSender {
 			logger.warning(plugin.formattedPluginName + "The default slap type does not exist "); 
 		}
 		else if (type.equalsIgnoreCase("noneedaccept")) {
-			sender.sendMessage(ChatColor.GREEN + "You have no need to accept any slaps "); 
+			sender.sendMessage(ChatColor.GREEN + "The specified player has no need to accept any slaps "); 
+		}
+		else if (type.equalsIgnoreCase("noneedrelease")) {
+			sender.sendMessage(ChatColor.RED + "The specified player does not need to be released from any slaps "); 
 		}
 		else {
 			sender.sendMessage(ChatColor.RED + "There was an error when trying to send you an error message "); 

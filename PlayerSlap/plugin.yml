@@ -20,15 +20,20 @@ commands:
     usage: /forceslap <player> [<type>] [<worth>]
     aliases: [fs, fosla]
     permission-message: You do not have the required permissions to perform this command 
-  slapacknowledge:
+  slapaccept:
     description: Acknowledge that you have been slapped if someone slaps you 
-    usage: /slapacknowledge accept|deny [<player>] 
-    aliases: [slapack, slac, slc]
+    usage: /slapaccept [<player>] 
+    aliases: [slapac, slaa, slacc]
+    permission-message: You do not have the required permissions to perform this command 
+  slaprelease:
+    description: Release a player who has been hit with a permenant slap 
+    usage: /slaprelease <player>
+    aliases: [slaprel, slarel, slrel]
     permission-message: You do not have the required permissions to perform this command 
   playerslap:
     description: The base informative command for the PlayerSlap plugin 
     usage: /playerslap help|version|{times <player>}|{config save|reload|{set <options>}}
-    aliases: [ps, plasl]
+    aliases: [ps, plasl, plasla]
     permission-message: You do not have the required permissions to perform this command 
 permissions:
   playerslap.*:
@@ -36,6 +41,8 @@ permissions:
     default: op
     children:
       playerslap.slap.all: true
+      playerslap.accept.others: true
+      playerslap.release: true
       playerslap.times.*: true
       playerslap.force: true
       playerslap.noslap.protect: true
@@ -54,6 +61,17 @@ permissions:
       playerslap.slap: true
   playerslap.slap:
     description: Give the player permission to slap itself
+    default: op
+  playerslap.accept.others:
+    description: Give the player permission to acknowledge that another player has been slapped 
+    default: op
+    children:
+      playerslap.accept: true
+  playerslap.accept:
+    description: Let the player ackniwledge that it has been slapped
+    default: op
+  playerslap.release:
+    description: Release a player who has had a permenant slap 
     default: op
   playerslap.times.*:
     description: Give the player to see how many times players have been slapped and reset them 
@@ -89,7 +107,8 @@ permissions:
     children:
       playerslap.see.slap: true
       playerslap.see.noslap: true
-      playerslap.see.response: true
+      playerslap.see.accept: true
+      playerslap.see.release: true
       playerslap.see.config: true
   playerslap.see.slap:
     description: Give the player permission to see when a player has been slapped
@@ -97,8 +116,11 @@ permissions:
   playerslap.see.noslap:
     description: Give the player permission to see when a player tried to slap a player with the playerslap.noslap permission
     default: op
-  playerslap.see.response:
+  playerslap.see.accept:
     description: Give the player permission to see a player's response to a slap 
+    default: op
+  playerslap.see.release:
+    description: Give the player permission to see when a player is released from a permenant slap 
     default: op
   playerslap.see.config:
     description: Give the player permission to see config save, set and reload messages 

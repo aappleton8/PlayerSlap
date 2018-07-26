@@ -19,8 +19,31 @@ public class PlayerSlapCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender s, Command c, String l, String[] args) {
-		// TODO Auto-generated method stub
-		return false;
+		if (args.length < 1) {
+			return false; 
+		}
+		else if (args[0].equalsIgnoreCase("help")) {
+			if (args.length == 1) {
+				// Send help
+				return true; 
+			}
+			else {
+				// Send help
+				return false; 
+			}
+		}
+		else if (args[0].equalsIgnoreCase("version")) {
+			if (args.length == 1) {
+				plugin.ms.sendMessage(s, "custom", plugin.formattedPluginName + " This plugin is version " + plugin.descriptionFile.getVersion()); 
+				return true; 
+			}
+			else {
+				return false; 
+			}
+		}
+		else {
+			return false; 
+		}
 	}
 
 }

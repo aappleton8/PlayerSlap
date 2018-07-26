@@ -12,6 +12,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
+import javafx.util.Pair;
 import me.PlayerSlap.MainClasses.PlayerSlapMainClass;
 
 class CommandDependencies {
@@ -24,6 +25,10 @@ class CommandDependencies {
 		plugin = pluginInstance; 
 		logger = loggerInstance; 
 		reducedCheck = reducedCheckValue; 
+	}
+	
+	public void help(CommandSender s) {
+		
 	}
 	
 	Boolean slapIndividualPlayer(CommandSender s, String[] args, Boolean force) {
@@ -59,8 +64,10 @@ class CommandDependencies {
 		}
 		Collection<? extends Player> onlinePlayers = Bukkit.getServer().getOnlinePlayers(); 
 		for (Player player : onlinePlayers) {
-			if (checkPlayerInformation(s, player, type, force) == true) {
-				sendSlap(s, player, type, worth); 
+			if (!(s.getName().equalsIgnoreCase(player.getName()))) {
+				if (checkPlayerInformation(s, player, type, force) == true) {
+					sendSlap(s, player, type, worth); 
+				}
 			}
 		}
 		return true; 
@@ -97,12 +104,16 @@ class CommandDependencies {
 		return type; 
 	}
 	
-	private String formatMessages(String message, String defaultMessage, String giver, String receiver) {
+	String formatMessages(String message, String defaultMessage, String giver, String receiver, String type, Boolean permanent) {
 		if (message != null) {
+			String permanentString = permanent ? "permanent " : ""; 
 			return message.replaceAll("$Default", defaultMessage)
 					.replaceAll("$Giver", giver)
 					.replaceAll("$Slapped", receiver)
-					.replaceAll("$None", ""); 
+					.replaceAll("$None", "")
+					.replaceAll("$Unknwon", plugin.ms.unknownValue)
+					.replaceAll("$Type", type)
+					.replaceAll("$Permanent", permanentString); 
 		}
 		else {
 			return "";  
@@ -192,6 +203,8 @@ class CommandDependencies {
 	
 	// This function slaps the player; it returns true for a success and false for a failure 
 	void sendSlap(CommandSender s, Player player, String type, int worth) {
+		Boolean mustAccept = plugin.yc.configuration.getBoolean("slaptypes." + type + ".followup.mustaccept"); 
+		Boolean isPermanent = plugin.yc.configuration.getBoolean("slaptypes." + type + ".followup.permanent"); 
 		String broadcastSlapMessage = plugin.ms.broadcastSlapMessage; 
 		String personalSlapMessage = plugin.ms.personalSlapMessage; 
 		String deathSlapMessage = plugin.ms.deathSlapMessage; 
@@ -206,9 +219,9 @@ class CommandDependencies {
 				deathSlapMessage = plugin.yc.configuration.getString("slaptypes." + type + ".messages.death"); 
 			}
 		}
-		formatMessages(broadcastSlapMessage, plugin.ms.broadcastSlapMessage, s.getName(), player.getDisplayName()); 
-		formatMessages(personalSlapMessage, plugin.ms.personalSlapMessage, s.getName(), player.getDisplayName()); 
-		formatMessages(deathSlapMessage, plugin.ms.deathSlapMessage, s.getName(), player.getDisplayName()); 
+		broadcastSlapMessage = formatMessages(broadcastSlapMessage, plugin.ms.broadcastSlapMessage, s.getName(), player.getDisplayName(), type, isPermanent); 
+		personalSlapMessage = formatMessages(personalSlapMessage, plugin.ms.personalSlapMessage, s.getName(), player.getDisplayName(), type, isPermanent); 
+		deathSlapMessage = formatMessages(deathSlapMessage, plugin.ms.deathSlapMessage, s.getName(), player.getDisplayName(), type, isPermanent); 
 		if (plugin.yc.configuration.contains("slaptypes." + type + ".health") == true) {
 			int damage = plugin.yc.configuration.getInt("slaptypes." + type + ".health"); 
 			if (damage > 0) {
@@ -229,12 +242,16 @@ class CommandDependencies {
 				player.getWorld().playEffect(player.getLocation(), Effect.SMOKE, (plugin.yc.configuration.getInt("slaptypes." + type + ".smoke"))); 
 			}
 		}
-		if (plugin.yc.configuration.contains("slaptypes." + type + ".followup.isheld") == true) {
-			if (plugin.yc.configuration.getBoolean("slaptypes." + type + ".followup.isheld") == true) {
-				plugin.yd.configuration.set("players." + player.getUniqueId().toString() + ".mustaccept", true); 
-				if (plugin.needAcceptPlayers.contains(player.getUniqueId()) == false) {
-					plugin.needAcceptPlayers.add(player.getUniqueId()); 
-				}
+		if ((mustAccept == true) || (isPermanent == true)) {
+			plugin.yd.configuration.set("players." + player.getUniqueId().toString() + ".currentslap.mustaccept", mustAccept); 
+			plugin.yd.configuration.set("players." + player.getUniqueId().toString() + ".currentslap.permanent", isPermanent); 
+			if (plugin.needAcceptPlayers.containsKey(player.getUniqueId()) == true) {
+				Pair<Boolean, Boolean> currentValues = plugin.needAcceptPlayers.get(player.getUniqueId()); 
+				plugin.needAcceptPlayers.put(player.getUniqueId(), 
+						new Pair<Boolean, Boolean>(currentValues.getKey() || mustAccept, currentValues.getValue() || isPermanent)); 
+			}
+			else {
+				plugin.needAcceptPlayers.put(player.getUniqueId(), new Pair<Boolean, Boolean>(mustAccept, isPermanent)); 
 			}
 		}
 		if (plugin.yc.configuration.contains("slaptypes." + type + ".mobs")) {

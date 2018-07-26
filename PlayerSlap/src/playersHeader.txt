@@ -1,9 +1,12 @@
-# players - The slap information for each player 
-# An example is shown below 
-# players: 
-# 	uuid-goes-here:
-# 		username: player-username
-# 		exempt: false 
-# 		times: 2
-# 		mustaccept: false 
+# players.yml - this file holds data about players 
+# An explanation of the possible fields of this file is given below 
+#
+# players (Section: - The players with data values  
+#   uuid-goes-here (Section): - The UUID of each player
+#     username (string): - The player;s username
+#     exempt (boolean): - Whether the player is exempt from being slapped or not 
+#     times (integer): - The number of times the player has been slapped 
+#     currentslap (Section): - Information concerning the player's current slap state 
+#       mustaccept (boolean): - Whether the player needs to accept a slap or not 
+#       permanent (boolean) - Whether the player has a permenant slap or not  
 #
