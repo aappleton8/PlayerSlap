@@ -18,6 +18,9 @@ public class MessageSender {
 	public final String personalReleaseMessage = "You have been released by $Giver"; 
 	public final String personalNoReleaseMessage = "You have not yet been released from this slap"; 
 	
+	public final String padding = "====="; 
+	public final String separator = "-"; 
+	
 	public MessageSender(PlayerSlapMainClass pluginInstance, Logger loggerInstance) {
 		plugin = pluginInstance; 
 		logger = loggerInstance; 
@@ -74,5 +77,15 @@ public class MessageSender {
 			sender.sendMessage(ChatColor.RED + "There was an error when trying to send you an error message "); 
 			logger.warning(plugin.formattedPluginName + "There was an error when processing an error message "); 
 		}
+	}
+	
+	public void help(CommandSender s) {
+		s.sendMessage(ChatColor.AQUA + padding + ChatColor.DARK_BLUE + plugin.descriptionFile.getName() + ChatColor.AQUA + " : " + "help" + padding); 
+		s.sendMessage(ChatColor.BLUE + "/slap [<player>] [<type>] [<worth>] " + ChatColor.WHITE + separator + ChatColor.AQUA + " Slap a player "); 
+		s.sendMessage(ChatColor.BLUE + "/slapall [<type>] [<worth>] " + ChatColor.WHITE + separator + ChatColor.AQUA + " Slap every player "); 
+		s.sendMessage(ChatColor.BLUE + "/forceslap <player> [<type>] [<worth>] " + ChatColor.WHITE + separator + ChatColor.AQUA + " Slap a player with the playerslap.noslap permission "); 
+		s.sendMessage(ChatColor.BLUE + "/slapaccept [<player>] " + ChatColor.WHITE + separator + ChatColor.AQUA + " Accept a slap (if the slap requires it) "); 
+		s.sendMessage(ChatColor.BLUE + "/slaprelease <player> " + ChatColor.WHITE + separator + ChatColor.AQUA + " Release a player from a permanent slap "); 
+		s.sendMessage(ChatColor.BLUE + "/playerslap help|version|{times <player>}|{config save|reload|{set <options>}} " + ChatColor.WHITE + separator + ChatColor.AQUA + " The base command "); 
 	}
 }

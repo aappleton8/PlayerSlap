@@ -27,10 +27,6 @@ class CommandDependencies {
 		reducedCheck = reducedCheckValue; 
 	}
 	
-	public void help(CommandSender s) {
-		
-	}
-	
 	Boolean slapIndividualPlayer(CommandSender s, String[] args, Boolean force) {
 		String playerName = args[0]; 
 		String type = checkType(s, (args.length >= 2) ? args[1] : null); 

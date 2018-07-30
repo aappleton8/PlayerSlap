@@ -7,6 +7,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 import me.PlayerSlap.MainClasses.PlayerSlapMainClass;
+import me.PlayerSlap.MainClasses.YamlFiles;
 
 public class PlayerSlapCommand implements CommandExecutor {
 	protected PlayerSlapMainClass plugin; 
@@ -24,11 +25,11 @@ public class PlayerSlapCommand implements CommandExecutor {
 		}
 		else if (args[0].equalsIgnoreCase("help")) {
 			if (args.length == 1) {
-				// Send help
+				plugin.ms.help(s); 
 				return true; 
 			}
 			else {
-				// Send help
+				plugin.ms.help(s); 
 				return false; 
 			}
 		}
@@ -36,6 +37,24 @@ public class PlayerSlapCommand implements CommandExecutor {
 			if (args.length == 1) {
 				plugin.ms.sendMessage(s, "custom", plugin.formattedPluginName + " This plugin is version " + plugin.descriptionFile.getVersion()); 
 				return true; 
+			}
+			else {
+				return false; 
+			}
+		}
+		else if (args[0].equalsIgnoreCase("config")) {
+			if (args.length == 2) {
+				if (args[1].equalsIgnoreCase("save")) {
+					YamlFiles.fullySaveAll(); 
+					return true; 
+				}
+				else if (args[1].equalsIgnoreCase("reload")) {
+					YamlFiles.fullyReloadAll(); 
+					return true; 
+				}
+				else {
+					return false; 
+				}
 			}
 			else {
 				return false; 

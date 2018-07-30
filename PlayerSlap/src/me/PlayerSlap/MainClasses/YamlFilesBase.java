@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfigurationOptions;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -47,16 +46,19 @@ public abstract class YamlFilesBase {
 	
 	public void reload() {
 		configuration = loadAConfiguration(theOutFile); 
-		Bukkit.broadcastMessage(plugin.getDescription().getName() + " configuration reloaded "); 
+		logger.info("[" + plugin.getDescription().getName() + "] " + theOutFile.getName() + " has been reloaded "); 
 	}
-	public void save() {
+	public Boolean save() {
 		try {
 			configuration.save(theOutFile);
+			return true; 
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "Unable to save file " + theOutFile, e); 
+			return false; 
 		} 
 	}
 	public abstract void fullReload(); 
+	public abstract void fullSave(); 
 	public int getNumFiles() {
 		return configList.size(); 
 	}

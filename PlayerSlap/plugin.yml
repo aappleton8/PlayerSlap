@@ -26,7 +26,7 @@ commands:
     aliases: [slapac, slaa, slacc]
     permission-message: You do not have the required permissions to perform this command 
   slaprelease:
-    description: Release a player who has been hit with a permenant slap 
+    description: Release a player who has been hit with a permanent slap 
     usage: /slaprelease <player>
     aliases: [slaprel, slarel, slrel]
     permission-message: You do not have the required permissions to perform this command 
@@ -147,9 +147,12 @@ permissions:
     children:
       playerslap.type.worth.*: true
       playerslap.type.noworth.*: true
-  playerslap.type.worth.*:
+  playerslap.type.anyworth.*:
+    description: Use every slap with any positive worth value
+    default: op
+  playerslap.type.defaultworth.*:
     description: Use every slap with its specified 'worth' value 
     default: op
   playerslap.type.noworth.*:
-    description: USe every slap with a 'worth' value of 0
+    description: Use every slap with a 'worth' value of 0
     default: op

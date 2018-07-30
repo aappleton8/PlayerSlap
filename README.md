@@ -1,6 +1,9 @@
 # PlayerSlap
 ## Description: 
-This plugin gives server administrators the ability to 'slap' players as a form of punishment. The action of 'slapping' can involve removing health, spawning mobs, hitting the player with lightning, producing smoke and broadcasting a message. 
+This plugin gives server administrators the ability to 'slap' players as a form of punishment. The action of 'slapping' can involve removing health, spawning mobs, hitting the player with lightning, producing smoke and broadcasting a message. Different types of slaps can be defined in the config file. 
+
+## Versions: 
+This project is currenty in an early development build. 
 
 ## License: 
 This plugin and its source code are released under a MIT license (see the LICENSE file for full details). This plugin is copyright (c) aappleton3/aappleton8, 2018. 
@@ -10,10 +13,12 @@ This plugin is built using Eclipse. To build the plugin, the .classpath file fir
 
 ## Commands: 
 This plugin has the following commands: 
- - */slap [&lt;player&gt;] [&lt;type&gt;]* - Slap a player 
- - */slapall [&lt;type&gt;]* - Slap every player 
- - */forceslap [&ltplayer&gt;] [&lt;type&gt;]* - Slap a player, even if it has the *playerslap.noslap* permission 
- - */playerslap accept|deny|help|version|{times <player>}|{config save|reload|{set <options>}}* - The main playerslap command 
+ - */slap [&lt;player&gt;] [&lt;type&gt;] [&lt;worth&gt;]* - Slap a player 
+ - */slapall [&lt;type&gt;] [&lt;worth&gt;]* - Slap every player 
+ - */forceslap &lt;player&gt; [&lt;type&gt;] [&lt;worth&gt;]* - Slap a player, even if it has the *playerslap.noslap* permission 
+ - */slapaccept [&lt;player&gt;]* - Accept the slap 
+ - */slaprelease &lt;player&gt;* - Release the player from a permanent slap 
+ - */playerslap help|version|{times &lt;player&gt;}|{config save|reload|{set &lt;options&gt;}}* - The main playerslap command 
 
 ## Permissions: 
  - playerslap.* - The root permission for this plugin 
@@ -36,8 +41,9 @@ This plugin has the following commands:
  - playerslap.config.reload - Let a player reload the config 
  - playerslap.config.set.* - Let a player set basic config file options 
  - playerslap.type.* - Let a player use all slap types 
- - playerslap.type.worth.* - Let a player use all slap types with their specified worths 
+ - playerslap.type.defaultworth.* - Let a player use all slap types with their specified worths 
  - playerslap.type.noworth.* - Let a player use all slap types with no worth 
+ - playerslap.type.anyworth.* - Let a player use all slap types with any positive worth 
 
 ## Configs: 
 This plugin uses the following config files: 

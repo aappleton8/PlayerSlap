@@ -1,5 +1,6 @@
 package me.PlayerSlap.MainClasses;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.UUID;
@@ -15,6 +16,7 @@ import me.PlayerSlap.CommandClasses.PlayerSlapCommand;
 import me.PlayerSlap.CommandClasses.SlapAcknowledgeCommand;
 import me.PlayerSlap.CommandClasses.SlapAllCommand;
 import me.PlayerSlap.CommandClasses.SlapCommand;
+import me.PlayerSlap.CommandClasses.SlapReleaseCommand;
 import me.PlayerSlap.Listeners.PlayerListener;
 
 public class PlayerSlapMainClass extends JavaPlugin {
@@ -45,6 +47,21 @@ public class PlayerSlapMainClass extends JavaPlugin {
 		descriptionFile = getDescription(); 
 		formattedPluginName = "[" + descriptionFile.getName() + "] "; 
 		setCommandExecutors(); 
+		getCurrentlySlappedPlayers(); 
+		registerExtraPermissions(pm); 
+		logger.info(formattedPluginName + descriptionFile.getName() + " " + descriptionFile.getVersion() + " has been enabled "); 
+	}
+	
+	private void setCommandExecutors() {
+		getCommand("slap").setExecutor(new SlapCommand(this, logger));  
+		getCommand("slapall").setExecutor(new SlapAllCommand(this, logger)); 
+		getCommand("playerslap").setExecutor(new PlayerSlapCommand(this, logger)); 
+		getCommand("forceslap").setExecutor(new ForceSlapCommand(this, logger)); 
+		getCommand("slapaccept").setExecutor(new SlapAcknowledgeCommand(this, logger)); 
+		getCommand("slaprelease").setExecutor(new SlapReleaseCommand(this, logger)); 
+	}
+	
+	private void getCurrentlySlappedPlayers() {
 		Set<String> UUIDs = yd.configuration.getConfigurationSection("players").getKeys(false); 
 		for (String i : UUIDs) {
 			try {
@@ -58,15 +75,19 @@ public class PlayerSlapMainClass extends JavaPlugin {
 				logger.warning(formattedPluginName + "There is a malformed configuration file entry at: players." + i); 
 			}
 		}
-		logger.info(formattedPluginName + descriptionFile.getName() + " " + descriptionFile.getVersion() + " has been enabled "); 
 	}
 	
-	private void setCommandExecutors() {
-		getCommand("slap").setExecutor(new SlapCommand(this, logger));  
-		getCommand("slapall").setExecutor(new SlapAllCommand(this, logger)); 
-		getCommand("playerslap").setExecutor(new PlayerSlapCommand(this, logger)); 
-		getCommand("forceslap").setExecutor(new ForceSlapCommand(this, logger)); 
-		getCommand("slapaccept").setExecutor(new SlapAcknowledgeCommand(this, logger)); 
+	private void registerExtraPermissions(PluginManager pm) {
+		Set<String> slapTypes = Collections.emptySet(); 
+		try {
+			slapTypes = plugin.yc.configuration.getConfigurationSection("slaptypes").getKeys(false); 
+		}
+		catch (NullPointerException e) {
+			logger.warning(formattedPluginName + "Could not register extra permissions as the config.yml file could not be loaded : " + e.toString());  
+		}
+		if ((slapTypes != null) && (slapTypes.isEmpty() == false)) {
+			YamlFiles.checkPermissions(slapTypes, pm); 
+		}
 	}
 	
 	public void addPlayer(String playerName, String sid) {
