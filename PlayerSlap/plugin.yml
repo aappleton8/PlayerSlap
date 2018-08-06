@@ -30,6 +30,11 @@ commands:
     usage: /slaprelease <player>
     aliases: [slaprel, slarel, slrel]
     permission-message: You do not have the required permissions to perform this command 
+  slapinfo:
+    description: Get information about players and lap types 
+    usage: /slapinfo slaplist|{slap <name>}|{slapmessages <name>}|{slapmobs <name>}|{player <name>}|general
+    aliases: [slai, slapi, sli]
+    permission-message: You do not have the required permissions to perform this command 
   playerslap:
     description: The base informative command for the PlayerSlap plugin 
     usage: /playerslap help|version|{times <player>}|{config save|reload|{set <options>}}
@@ -48,6 +53,7 @@ permissions:
       playerslap.noslap.protect: true
       playerslap.see.*: true
       playerslap.config.*: true
+      playerslap.info.*: true
       playerslap.type.*: true
   playerslap.slap.all:
     description: Give the player permission to slap every player 
@@ -140,6 +146,34 @@ permissions:
     default: op
   playerslap.config.set.*:
     description: Set basic config file options 
+    default: op
+  playerslap.info.*:
+    description: Get information about slap types, players and general config information 
+    default: op
+    children:
+      playerslap.info.slap: true
+      playerslap.info.slapmessages: true
+      playerslap.info.slapmobs: true
+      playerslap.info.slaplist: true
+      playerslap.info.player: true
+      playerslap.info.general: true
+  playerslap.info.slap:
+    description: Get information on a type of slap 
+    default: op
+  playerslap.info.slapmessages:
+    description: The slap specific messages sent by a slap 
+    default: op
+  playerslap.info.slapmobs:
+    description: The mobs spawned by a slap 
+    default: op
+  playerslap.info.slaplist:
+    description: List the available slap types 
+    default: op
+  playerslap.info.player:
+    description: Get information on a player 
+    default: op
+  playerslap.info.general:
+    description: Get general config file information 
     default: op
   playerslap.type.*:
     description: Use every slap 

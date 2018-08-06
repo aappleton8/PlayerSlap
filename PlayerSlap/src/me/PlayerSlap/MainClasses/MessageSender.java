@@ -73,6 +73,12 @@ public class MessageSender {
 		else if (type.equalsIgnoreCase("noneedrelease")) {
 			sender.sendMessage(ChatColor.RED + "The specified player does not need to be released from any slaps "); 
 		}
+		else if (type.equalsIgnoreCase("nomobs")) {
+			sender.sendMessage(ChatColor.RED + "No mobs are defined for this slap type "); 
+		}
+		else if (type.equalsIgnoreCase("noplayerconfig")) {
+			sender.sendMessage(ChatColor.RED + "That player could not be found in the config file "); 
+		}
 		else {
 			sender.sendMessage(ChatColor.RED + "There was an error when trying to send you an error message "); 
 			logger.warning(plugin.formattedPluginName + "There was an error when processing an error message "); 

@@ -1,6 +1,7 @@
 package me.PlayerSlap.CommandClasses;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -25,6 +26,34 @@ class CommandDependencies {
 		plugin = pluginInstance; 
 		logger = loggerInstance; 
 		reducedCheck = reducedCheckValue; 
+	}
+	
+	UUID getUUIDFromPossibleOfflinePlayer(String username) {
+		@SuppressWarnings("deprecation")
+		Player player = Bukkit.getPlayer(username); 
+		if (player != null) {
+			return player.getUniqueId(); 
+		}
+		else if (plugin.yd.configuration.contains("players")) {
+			Set<String> playerUUIDStrings  = Collections.emptySet(); 
+			try {
+				playerUUIDStrings = plugin.yd.configuration.getConfigurationSection("players").getKeys(false); 
+			}
+			catch (NullPointerException e) {
+				return null; 
+			}
+			if (playerUUIDStrings.isEmpty() == false) {
+				for (String i : playerUUIDStrings) {
+					if (plugin.yd.configuration.getString("players." + i).equalsIgnoreCase("username")) {
+						return UUID.fromString(i); 
+					}
+				}
+			}
+			return null; 
+		}
+		else {
+			return null; 
+		}
 	}
 	
 	Boolean slapIndividualPlayer(CommandSender s, String[] args, Boolean force) {

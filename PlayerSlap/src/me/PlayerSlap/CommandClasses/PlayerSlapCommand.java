@@ -56,6 +56,38 @@ public class PlayerSlapCommand implements CommandExecutor {
 					return false; 
 				}
 			}
+			else if (args.length == 4) {
+				if (args[1].equalsIgnoreCase("set")) {
+					
+					return false; 
+				}
+				else {
+					return false; 
+				}
+			}
+			else {
+				return false; 
+			}
+		}
+		else if (args[0].equalsIgnoreCase("player")) {
+			if (args.length == 3) {
+				if (args[1].equalsIgnoreCase("get")) {
+					
+					return false; 
+				}
+				else {
+					return false; 
+				}
+			}
+			else if (args.length == 4) {
+				if (args[1].equalsIgnoreCase("set")) {
+					
+					return false; 
+				}
+				else {
+					return false; 
+				}
+			}
 			else {
 				return false; 
 			}

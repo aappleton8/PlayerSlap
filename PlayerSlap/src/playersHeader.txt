@@ -3,7 +3,7 @@
 #
 # players (Section: - The players with data values  
 #   uuid-goes-here (Section): - The UUID of each player
-#     username (string): - The player;s username
+#     username (string): - The player's username
 #     exempt (boolean): - Whether the player is exempt from being slapped or not 
 #     times (integer): - The number of times the player has been slapped 
 #     currentslap (Section): - Information concerning the player's current slap state 

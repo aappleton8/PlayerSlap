@@ -16,6 +16,7 @@ import me.PlayerSlap.CommandClasses.PlayerSlapCommand;
 import me.PlayerSlap.CommandClasses.SlapAcknowledgeCommand;
 import me.PlayerSlap.CommandClasses.SlapAllCommand;
 import me.PlayerSlap.CommandClasses.SlapCommand;
+import me.PlayerSlap.CommandClasses.SlapInfoCommand;
 import me.PlayerSlap.CommandClasses.SlapReleaseCommand;
 import me.PlayerSlap.Listeners.PlayerListener;
 
@@ -59,6 +60,7 @@ public class PlayerSlapMainClass extends JavaPlugin {
 		getCommand("forceslap").setExecutor(new ForceSlapCommand(this, logger)); 
 		getCommand("slapaccept").setExecutor(new SlapAcknowledgeCommand(this, logger)); 
 		getCommand("slaprelease").setExecutor(new SlapReleaseCommand(this, logger)); 
+		getCommand("slapinfo").setExecutor(new SlapInfoCommand(this, logger)); 
 	}
 	
 	private void getCurrentlySlappedPlayers() {
