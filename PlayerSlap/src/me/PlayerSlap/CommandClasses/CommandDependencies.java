@@ -284,7 +284,22 @@ class CommandDependencies {
 			for (String i : mobs) {
 				try {
 					for (int j = 0; j < plugin.yc.configuration.getInt("slaptypes." + type + ".mobs." + i); j++) {
-						player.getWorld().spawnEntity(player.getLocation(), EntityType.valueOf(i)); 
+						EntityType entityType = null; 
+						Boolean run = true; 
+						try {
+							entityType = EntityType.valueOf(i); 
+						}
+						catch (IllegalArgumentException e) {
+							run = false; 
+							Bukkit.broadcast(ChatColor.RED + plugin.formattedPluginName + "The " + type + " slap has an invalid mob type of " + i, "playerslap.see.config"); 
+						}
+						catch (NullPointerException e) {
+							run = false; 
+							Bukkit.broadcast(ChatColor.RED + "The " + type + " slap has a null mob type ", "playerslap.see.config"); 
+						}
+						if (run == true) {
+							player.getWorld().spawnEntity(player.getLocation(), entityType); 
+						}
 					}
 				}
 				catch (IllegalArgumentException e) {

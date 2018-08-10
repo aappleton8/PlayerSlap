@@ -32,12 +32,12 @@ commands:
     permission-message: You do not have the required permissions to perform this command 
   slapinfo:
     description: Get information about players and lap types 
-    usage: /slapinfo slaplist|{slap <name>}|{slapmessages <name>}|{slapmobs <name>}|{player <name>}|general
+    usage: /slapinfo slaplist|{slap <type>}|{slapmessages <type>}|{slapmobs <type>}|{player <player>}|{times <player>}|general
     aliases: [slai, slapi, sli]
     permission-message: You do not have the required permissions to perform this command 
   playerslap:
     description: The base informative command for the PlayerSlap plugin 
-    usage: /playerslap help|version|{times <player>}|{config save|reload|{set <options>}}
+    usage: /playerslap help|version|{config save|reload|{set <type> <property> <value>}|{new <type>}|{remove <type>}}|{player}
     aliases: [ps, plasl, plasla]
     permission-message: You do not have the required permissions to perform this command 
 permissions:
@@ -171,6 +171,11 @@ permissions:
     default: op
   playerslap.info.player:
     description: Get information on a player 
+    default: op
+    children:
+      playerslap.info.player.times: true
+  playerslap.info.player.times:
+    description: Get the number of times a player has been slapped 
     default: op
   playerslap.info.general:
     description: Get general config file information 

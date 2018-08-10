@@ -79,6 +79,15 @@ public class MessageSender {
 		else if (type.equalsIgnoreCase("noplayerconfig")) {
 			sender.sendMessage(ChatColor.RED + "That player could not be found in the config file "); 
 		}
+		else if (type.equalsIgnoreCase("slapalreadydefined")) {
+			sender.sendMessage(ChatColor.RED + "That slap type is already defined "); 
+		}
+		else if (type.equalsIgnoreCase("invalidvalue")) {
+			sender.sendMessage(ChatColor.RED + "That value is invalid; it must be a" + message + " "); 
+		}
+		else if (type.equalsIgnoreCase("invalidproperty")) {
+			sender.sendMessage(ChatColor.RED + "That property does not exist "); 
+		}
 		else {
 			sender.sendMessage(ChatColor.RED + "There was an error when trying to send you an error message "); 
 			logger.warning(plugin.formattedPluginName + "There was an error when processing an error message "); 

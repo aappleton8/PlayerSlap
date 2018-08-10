@@ -164,6 +164,26 @@ public class SlapInfoCommand implements CommandExecutor {
 				return false; 
 			}
 		}
+		else if (args[0].equalsIgnoreCase("times")) {
+			if (args.length == 2) {
+				if (s.hasPermission("playerslap.info.player.times")) {
+					UUID pid = dep.getUUIDFromPossibleOfflinePlayer(args[1]); 
+					if (pid == null) {
+						plugin.ms.sendMessage(s, "noplayerconfig", null); 
+					}
+					else {
+						s.sendMessage("The player " + args[1] + " has been slapped " + plugin.yd.configuration.getString("player." + pid.toString() + ".times") + " times "); 
+					}
+				}
+				else {
+					plugin.ms.sendMessage(s, "nopermission", null);
+				}
+				return true; 
+			}
+			else {
+				return false; 
+			}
+		}
 		else if (args[0].equalsIgnoreCase("general")) {
 			if (args.length == 1) {
 				if (s.hasPermission("playerslap.info.general")) {
