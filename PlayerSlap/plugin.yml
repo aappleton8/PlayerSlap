@@ -37,7 +37,7 @@ commands:
     permission-message: You do not have the required permissions to perform this command 
   playerslap:
     description: The base informative command for the PlayerSlap plugin 
-    usage: /playerslap help|version|{config save|reload|{set <type> <property> <value>}|{new <type>}|{remove <type>}}|{player}
+    usage: /playerslap help|version|{config save|reload}|{slap {set <type> <property> [sub-property] <value>}|{new <type>}|{remove <type>}}|{player {set <player> <property> <value>}|{remove <player>}}
     aliases: [ps, plasl, plasla]
     permission-message: You do not have the required permissions to perform this command 
 permissions:
