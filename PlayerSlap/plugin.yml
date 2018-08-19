@@ -37,7 +37,7 @@ commands:
     permission-message: You do not have the required permissions to perform this command 
   playerslap:
     description: The base informative command for the PlayerSlap plugin 
-    usage: /playerslap help|version|{config save|reload}|{slap {set <type> <property> [sub-property] <value>}|{new <type>}|{remove <type>}}|{player {set <player> <property> <value>}|{remove <player>}}
+    usage: /playerslap help|version|{config save|reload|{set <property> <value>}}|{slap {set <type> <property> [sub-property] <value>}|{new <type>}|{remove <type>}}|{player {set <player> <property> <value> [<modifier>]}|{remove <player>}}
     aliases: [ps, plasl, plasla]
     permission-message: You do not have the required permissions to perform this command 
 permissions:
@@ -52,6 +52,7 @@ permissions:
       playerslap.force: true
       playerslap.noslap.protect: true
       playerslap.see.*: true
+      playerslap.unslap.*: true
       playerslap.config.*: true
       playerslap.info.*: true
       playerslap.type.*: true
@@ -131,21 +132,115 @@ permissions:
   playerslap.see.config:
     description: Give the player permission to see config save, set and reload messages 
     default: op
+  playerslap.unslap.*:
+    description: Quietly remove a slap from a player 
+    default: op 
+    children:
+      playerslap.unslap.mustaccept.decrement: true
+      playerslap.unslap.ispermanent.decrement: true
+  playerslap.unslap.mustaccept.decrement:
+    description: Quietly remove a player's need to accept a slap and decrement its slap times counter by one 
+    default: op
+    children:
+      playerslap.unslap.mustaccept: true
+  playerslap.unslap.mustaccept:
+    description: Quietly remove a player's need to accept a slap without decrementing its slap times counter 
+    default: op
+  playerslap.unslap.ispermanent.decrement:
+    description : Quietly release a player from a permanent slap and decrement its slap times counter by one 
+    default: op
+    children:
+      playerslap.unslap.ispermanent: true
+  playerslap.unslap.ispermanent:
+    description: Quietly release a player from a permanent slap without decrementing its slap times counter 
+    default: op
   playerslap.config.*:
     description: Give the player access to all config file commands 
     default: op
     children: 
       playerslap.config.save: true
       playerslap.config.reload: true
-      playerslap.config.set.* : true
+      playerslap.config.newslap: true
+      playerslap.config.removeslap: true
+      playerslap.config.removeplayer: true
+      playerslap.config.setconfig.*: true
+      playerslap.config.setslap.*: true
+      playerslap.config.setplayer.*: true
   playerslap.config.save:
     description: Save the config file 
     default: op
   playerslap.config.reload:
     description: Reload the config file 
     default: op
-  playerslap.config.set.*:
+  playerslap.config.newslap:
+    description: Add a new slap type 
+    default: op
+  playerslap.config.removeslap:
+    description: Remove a slap type 
+    default: op
+  playerslap.config.removeplayer:
+    description: Remove the information about a player 
+    default: op
+  playerslap.config.setconfig.*:
+    description: Set general config options
+    default: op
+    children:
+      playerslap.config.setconfig.slapself: true
+      playerslap.config.setconfig.slapdefault: true
+      playerslap.config.setconfig.incrementonslapall: true
+  playerslap.config.setconfig.slapself:
+    description: Set whether a player can slap itself 
+    default: op
+  playerslap.config.setconfig.slapdefault:
+    description: Set the default slap type 
+    default: op
+  playerslap.config.setconfig.incrementonslapall:
+    description: Set whether a player's slap count is incremented when the slapall command is used 
+    default: op
+  playerslap.config.setslap.*:
     description: Set basic config file options 
+    default: op
+    children:
+      playerslap.config.setslap.health: true
+      playerslap.config.setslap.worth: true
+      playerslap.config.setslap.mustaccept: true
+      playerslap.config.setslap.permanent: true
+      playerslap.config.setslap.lightning: true
+      playerslap.config.setslap.smoke: true
+      playerslap.config.setslap.mob: true
+  playerslap.config.setslap.health:
+    description: Set the amount of health removed by a slap 
+    default: op
+  playerslap.config.setslap.worth: 
+    description: Set the worth of a slap 
+    default: op
+  playerslap.config.setslap.mustaccept:
+    description: Set whether a player must accept a slap or not 
+    default: op
+  playerslap.config.setslap.ispermanent:
+    description: Set whether a slap is permanent or not 
+    default: op
+  playerslap.config.setslap.lightning:
+    description: Set whether a slap produces lightning or not 
+    default: op
+  playerslap.config.setslap.smoke:
+    description: Set the radius of smoke produced by a slap 
+    default: op
+  playerslap.config.setslap.mob:
+    description: Set the mobs spawned by a slap 
+    default: op
+  playerslap.config.setplayer.*:
+    description: Set basic player options 
+    default: op
+    children:
+      playerslap.config.setplayer.times: true
+      playerslap.config.setplayer.exempt: true
+      playerslap.unslap.*: true
+  playerslap.config.setplayer.times:
+    description: Set how many times a player has been slapped 
+    default: op
+  playerslap.config.setplayer.exempt:
+    description: Set whether a player is exempt from being slapped or not 
     default: op
   playerslap.info.*:
     description: Get information about slap types, players and general config information 
