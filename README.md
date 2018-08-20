@@ -19,7 +19,7 @@ This plugin has the following commands:
  - */slapaccept [&lt;player&gt;]* - Accept the slap 
  - */slaprelease &lt;player&gt;* - Release the player from a permanent slap 
  - */slapinfo slaplist|{slap &lt;type&gt;}|{slapmessages &lt;type&gt;}|{slapmobs &lt;type&gt;}|{player &lt;player&gt;}|{times &lt;player&gt;}|general* - Get information about the available slaps, a specific slap, messages sent by a specific slap, mobs spawned by a specific slap, a player, the amount of times a player has been slapped or general configuration settings. 
- - */playerslap help|version|{config save|reload|{set <property> <value>}}|{slap {set &lt;type&gt; &lt;property&gt; [sub-property] &lt;value&gt;}|{new &lt;type&gt;}|{remove &lt;type&gt;}}|{player {set &lt;player&gt; &lt;property&gt; &lt;value&gt; [&lt;modifier&gt;]}|{remove &lt;player&gt;}}* - The main playerslap command that gives command help, the plugin version and the ability to set configuration and player properties. 
+ - */playerslap help|version|{config save|reload|{set &lt;property&gt; &lt;value&gt;}}|{slap {set &lt;type&gt; &lt;property&gt; [sub-property] &lt;value&gt;}|{new &lt;type&gt;}|{remove &lt;type&gt;}}|{player {set &lt;player&gt; &lt;property&gt; &lt;value&gt; [&lt;modifier&gt;]}|{remove &lt;player&gt;}}* - The main playerslap command that gives command help, the plugin version and the ability to set configuration and player properties. 
 
 ## Permissions: 
 All permissions default to being op only. 
@@ -84,7 +84,74 @@ All permissions default to being op only.
  - playerslap.type.anyworth.* - Let a player use all slap type with any worth 
  - playerslap.type.anyworth.&lt;slap&gt; - Let a player use the specified slap type with any worth 
 
-## Configs: 
+## Configuration Files: 
+### General Information: 
 This plugin uses the following config files: 
  - config.yml 
  - players.yml
+ 
+ The config.yml file contains basic plugin settings as well as all the defined slap types. The players.yml file contains data stored about each player, such as how many times the player has been slapped and the player's current slapped state. 
+
+### The 'config.yml' File: 
+An example config.yml file is given below: 
+
+```YAML
+slapself: true
+slapdefault: 1
+incrementonslapall: true
+messages:
+  accept: $Default
+  releasebroadcast: $Default
+  releasepersonal: $Default
+  noreleasepersonal: $Default
+slaptypes:
+  '1':
+    health: 3
+    worth: 1
+    followup:
+      mustaccept: true
+      permanent: false
+    lightning: true
+    smoke: 30
+    messages:
+      slapbroadcast: $Giver slapped $Slapped. 
+      slappersonal: $Giver slapped you. 
+      death: $Default
+    mobs:
+      ZOMBIE: 5
+      SKELETON: 1
+  '2':
+    health: 5
+    worth: 3
+    followup:
+      mustaccept: false
+      permanent: false
+    lightning: true
+    smoke: 50
+    messages:
+      broadcast: $Default
+      personal: $Default
+      death: $Default
+    mobs:
+      BLAZE: 10
+      GIANT: 1
+      VILLAGER: 100
+```
+
+
+### The 'players.yml' File: 
+An example players.yml file is given below: 
+
+```YAML
+players:
+  UUID-here:
+    username: genericusername
+    exempt: false
+    times: 5
+    currentslap:
+      mustaccept: false
+      permanent: false
+```
+
+
+
