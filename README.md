@@ -97,7 +97,7 @@ An example config.yml file is given below:
 
 ```YAML
 slapself: true
-slapdefault: 1
+slapdefault: '1'
 incrementonslapall: true
 messages:
   accept: $Default
@@ -138,6 +138,18 @@ slaptypes:
       VILLAGER: 100
 ```
 
+The string values of subfields of each configuration section called 'messages' can contain the following words which will be substituted for another value when the message is sent: 
+- $Default gets substituted for a default message. 
+- $Unknown gets substituted for 'unknown' 
+- $None get substituted for nothing 
+- $Slapped gets substituted for the name of the person who has been slapped 
+- $Giver gets substituted for the name of the person who gave the slap 
+
+The below list explains the fields in the example file: 
+- The 'slapself' field is a boolean that determines whether a player can slap itself or not. 
+- The 'slapdefault' field contain the id of the default slap type. 
+- The 'incrementonslapall' field is a boolean that determines whether a player's slap counter should be incremented on a slap as a result of the '/slapall' command. 
+- The accept message is the mesage broadcast when a player accepts a slap. 
 
 ### The 'players.yml' File: 
 An example players.yml file is given below: 
