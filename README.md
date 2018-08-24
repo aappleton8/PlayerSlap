@@ -3,7 +3,7 @@
 This plugin gives server administrators the ability to 'slap' players as a form of punishment. The action of 'slapping' can involve removing health, spawning mobs, hitting the player with lightning, producing smoke and broadcasting a message. Different types of slaps can be defined in the config file. 
 
 ## Versions: 
-This project is currenty in an early development build. 
+This project is currently in a development build. 
 
 ## License: 
 This plugin and its source code are released under a MIT license (see the LICENSE file for full details). This plugin is copyright (c) aappleton3/aappleton8, 2018. 
@@ -14,7 +14,7 @@ This plugin is built using Eclipse. To build the plugin, the .classpath file fir
 ## Commands: 
 This plugin has the following commands: 
  - */slap [&lt;player&gt;] [&lt;type&gt;] [&lt;worth&gt;]* - Slap a player 
- - */slapall [&lt;type&gt;] [&lt;worth&gt;]* - Slap every player 
+ - */slapall [&lt;type&gt;] [&lt;worth&gt;]* - Slap every player except those who are protected 
  - */forceslap &lt;player&gt; [&lt;type&gt;] [&lt;worth&gt;]* - Slap a player, even if it has the *playerslap.noslap* permission 
  - */slapaccept [&lt;player&gt;]* - Accept the slap 
  - */slaprelease &lt;player&gt;* - Release the player from a permanent slap 
@@ -30,10 +30,6 @@ All permissions default to being op only.
  - playerslap.accept.others - Accept a slap on behalf of another player 
  - playerslap.accept - Accept a slap 
  - playerslap.release - Release a player from a permanent slap 
- - playerslap.times.* - See and reset the amount of times a player has been slapped 
- - playerslap.times.reset - Reset the amount of times a player has been slapped 
- - playerslap.times.others - See the amount of times another player has been slapped 
- - playerslap.times - See the amount of times the command sender has been slapped 
  - playerslap.force - Use the */forceslap* command 
  - playerslap.noslap.protect - Prevent this player from being slapped and slap the slapping player 
  - playerslap.noslap - Prevent this player from being slapped 
@@ -44,9 +40,9 @@ All permissions default to being op only.
  - playerslap.see.release - Let a player see when another player has been released from a permanent slap 
  - playerslap.see.config - Let a player see config save, set and reload messages 
  - playerslap.unslap.* - Quietly unslap a player 
- - playerslap.unslap.mustaccept.decrement - Quietly remove a player's need to accept a slap whilst decrementing its slap times counter by 1 
+ - playerslap.unslap.mustaccept.decrement - Quietly remove a player's need to accept a slap whilst decrementing its slap times counter by 1 (also gives playerslap.unslap.mustaccept) 
  - playerslap.unslap.mustaccept - Quietly remove a player's need to accept a slap whithout decrementing its slap times counter  
- - playerslap.unslap.ispermanent.decrement - Quietly release a player from a permanent slap whilst decrementing its slap times counter by 1 
+ - playerslap.unslap.ispermanent.decrement - Quietly release a player from a permanent slap whilst decrementing its slap times counter by 1 (also gives playerslap.unslap.ispermanent) 
  - playerslap.unslap.ispermanent - Quietly release a player from a permanent slap whithout decrementing its slap times counter 
  - playerslap.config.* - Let a player use all config commands 
  - playerslap.config.save - Let a player save the config 
@@ -67,7 +63,8 @@ All permissions default to being op only.
  - playerslap.config.setslap.smoke - Let a player set the radius of smoke produced by a slap 
  - playerslap.config.setslap.mob - Let a player set what mobs a slap produces 
  - playerslap.config.setplayer.* - Let a player set basic player properties (also gives playerslap.unslap.*) 
- - playerslap.config.setplayer.times - Let a player set the amount of times a player has been slapped 
+ - playerslap.config.setplayer.times - Let a player set the amount of times a player has been slapped (also gives playerslap.config.setplayer.times.reset)
+ - playerslap.config.setplayer.times.reset - Let a player set the amount of times a player has been slapped back to 0 
  - playerslap.config.setplayer.exempt - Let a player set whether another player is exempt from being slapped or not 
  - playerslap.info.* - Let a player get information about slap types, players and general config information 
  - playerslap.info.slap - Let a player get information about a slap type 
@@ -90,10 +87,10 @@ This plugin uses the following config files:
  - config.yml 
  - players.yml
  
- The config.yml file contains basic plugin settings as well as all the defined slap types. The players.yml file contains data stored about each player, such as how many times the player has been slapped and the player's current slapped state. 
+ The 'config.yml' file contains basic plugin settings as well as all the defined slap types. The 'players.yml' file contains data stored about each player, such as how many times the player has been slapped and the player's current slapped state. 
 
 ### The 'config.yml' File: 
-An example config.yml file is given below: 
+An example 'config.yml' file is given below: 
 
 ```YAML
 slapself: true
@@ -138,21 +135,47 @@ slaptypes:
       VILLAGER: 100
 ```
 
-The string values of subfields of each configuration section called 'messages' can contain the following words which will be substituted for another value when the message is sent: 
-- $Default gets substituted for a default message. 
+The string values of subfields of each configuration section called 'messages' can contain some of the following words which will be substituted for another value when the message is sent: 
+- $Default gets substituted for the default message. 
 - $Unknown gets substituted for 'unknown' 
 - $None get substituted for nothing 
 - $Slapped gets substituted for the name of the person who has been slapped 
-- $Giver gets substituted for the name of the person who gave the slap 
+- $Giver gets substituted for the name of the person who gave the slap or the name of the person trying to remove a permanent slap (as appropriate) 
+- $Type becomes the slap type 
+- $Permanent becomes 'permanent' if the slap is permanent and nothing otherwise 
+The following restrictions apply to using the substitutions defined in the above list: 
+- The 'accept' message cannot substitute $Type 
+- The 'releasebroadcast' message cannot substitute $Type 
+- The 'releasepersonal' message cannot substitute $Type 
+- The 'noreleasepersonal' message cannot substitute $Type or $Giver 
+- The 'slapbroadcast' message has no restrictions 
+- The 'slappersonal' message has no restrictions 
+- The 'death' message has no restrictions 
 
-The below list explains the fields in the example file: 
+The below list explains the top-level fields and the fields immediately inside the top-level 'messages' section in the above example 'config.yml' file: 
 - The 'slapself' field is a boolean that determines whether a player can slap itself or not. 
 - The 'slapdefault' field contain the id of the default slap type. 
 - The 'incrementonslapall' field is a boolean that determines whether a player's slap counter should be incremented on a slap as a result of the '/slapall' command. 
-- The accept message is the mesage broadcast when a player accepts a slap. 
+- The 'accept' message is the message broadcast when a player accepts a slap. 
+- The 'releasebroadcast' message is the message broadcast when a player is released from a slap. 
+- The 'releasepersonal' message is the message sent to a player when the player is released from a slap. 
+- The 'noreleasepersonal' message is the message sent to a player when it tries to accept a slap from which it has not been released. 
+- The 'slaptypes' section contains the name of each slap type. 
+
+The below list explains the fields within each section about a specific slap: 
+- The 'health' field is an integer that defines how much health to remove from a player. 
+- The 'worth' field is an integer that indicates by how much each players' field recording the amount of times it has been slapped will be incremented. 
+- The 'mustaccept' field is a boolean that indicates whether the player has to accept the slap or not. 
+- The 'permanent' field is a boolean that indicates whether the slap lasts until someone with the appropriate permission releases the player from it or not. 
+- The 'lightning' field is a boolean that indicates whether the player is stuck by lightning or not. 
+- The 'smoke' field is an integer that defines the radius of smoke produced by the slap ('0' disables smoke). 
+- The 'broadcast' message is the message broadcast when a player is slapped. 
+- The 'personal' message is the message sent to the player when the player is slapped. 
+- The 'death' message is the message broadcast if the slap kills the player. 
+- The 'mobs' field contains the case-sensitive name (as defined on this web-page: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/EntityType.html) and amount to spawn of each mob, in the form 'name: amount'. 
 
 ### The 'players.yml' File: 
-An example players.yml file is given below: 
+An example 'players.yml' file is given below: 
 
 ```YAML
 players:
@@ -165,5 +188,12 @@ players:
       permanent: false
 ```
 
+The only top-level field of the 'players.yml' is the 'players' field, which contains the UUID of each player. The UUID of each player forms a section containig the data about each player. 
 
+The below list explains the fields within the each UUID section: 
+- The 'username' field contains the username of the player. 
+- The 'exempt' field is a boolean that states whether the player is exempt from being slapped or not (this is a stronger form of protection than the *playerslap.noslap* permission). 
+- The 'times' field is an integer stating the cumulative value of the 'worth' field of each slap that the player has been slapped with. 
+- The 'mustaccept' field states whether the player needs to accept a slap or not. 
+- The 'permanent' field states whether the player is currently under a permanent slap or not. 
 

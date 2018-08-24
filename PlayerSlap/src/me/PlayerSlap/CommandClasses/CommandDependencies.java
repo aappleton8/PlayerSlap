@@ -69,6 +69,12 @@ class CommandDependencies {
 		@SuppressWarnings("deprecation")
 		Player player = Bukkit.getPlayer(playerName); 
 		int worth = checkSlapWorth(s, type, (args.length >= 3) ? args[2] : null); 
+		Boolean hasSlapPermission = checkSlapPermissions(s, type, worth); 
+		if (!hasSlapPermission) {
+			plugin.ms.sendMessage(s, "nopermission", null); 
+			return true; 
+		}
+		
 		sendSlap(s, player, type, worth); 
 		return true; 
 	}
@@ -79,6 +85,11 @@ class CommandDependencies {
 			return true; 
 		}
 		int worth = checkSlapWorth(s, type, (args.length >= 2) ? args[1] : null); 
+		Boolean hasSlapPermission = checkSlapPermissions(s, type, worth); 
+		if (!hasSlapPermission) {
+			plugin.ms.sendMessage(s, "nopermission", null); 
+			return true; 
+		}
 		if (plugin.yc.configuration.contains("incrementonslapall") == true) {
 			if (plugin.yc.configuration.getBoolean("incrementonslapall") == false) {
 				worth = 0; 
@@ -224,6 +235,28 @@ class CommandDependencies {
 			}
 		}
 		return worth; 
+	}
+	
+	Boolean checkSlapPermissions(CommandSender s, String type, int worth) {
+		int slapWorth = 0; 
+		if (plugin.yc.configuration.contains("slaptypes." + type + ".worth")) {
+			slapWorth = plugin.yc.configuration.getInt("slaptypes." + type + ".worth"); 
+		}
+		else {
+			slapWorth = worth + 1; 
+		}
+		if ((s.hasPermission("playerslap.type.defaultworth.*") || s.hasPermission("playerslap.type.defaultworth." + type)) && (slapWorth == worth)) {
+			return true; 
+		}
+		else if ((s.hasPermission("playerslap.type.noworth.*") || s.hasPermission("playerslap.type.noworth." + type)) && (worth == 0)) {
+			return true; 
+		}
+		else if (s.hasPermission("playerslap.type.anyworth.*") || s.hasPermission("playerslap.type.anyworth." + type)) {
+			return true; 
+		}
+		else {
+			return false; 
+		}
 	}
 	
 	// This function slaps the player; it returns true for a success and false for a failure 

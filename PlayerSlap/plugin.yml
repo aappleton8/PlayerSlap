@@ -1,6 +1,6 @@
 name: PlayerSlap
 main: me.PlayerSlap.MainClasses.PlayerSlapMainClasses 
-version: development_0.0.0.0  
+version: Development_0.0.0.0  
 description: A plugin to slap players  
 author: aappleton3 
 database: false
@@ -48,7 +48,6 @@ permissions:
       playerslap.slap.all: true
       playerslap.accept.others: true
       playerslap.release: true
-      playerslap.times.*: true
       playerslap.force: true
       playerslap.noslap.protect: true
       playerslap.see.*: true
@@ -79,23 +78,6 @@ permissions:
     default: op
   playerslap.release:
     description: Release a player who has had a permenant slap 
-    default: op
-  playerslap.times.*:
-    description: Give the player to see how many times players have been slapped and reset them 
-    default: op
-    children: 
-      playerslap.times.reset: true
-      playerslap.times.others: true
-  playerslap.times.reset: 
-    description: Reset the amount of times a player has been slapped 
-    default: op
-  playerslap.times.others:
-    description: Give the player permission to see how many times other players have been slapped 
-    default: op
-    children:
-      playerslap.times: true
-  playerslap.times:
-    description: Give the player permission to see how many times it has been slapped 
     default: op
   playerslap.force:
     description: Give the player permission to use the /forceslap command 
@@ -238,6 +220,11 @@ permissions:
       playerslap.unslap.*: true
   playerslap.config.setplayer.times:
     description: Set how many times a player has been slapped 
+    default: op
+    children:
+      playerslap.config.setplayer.times.reset: true
+  playerslap.config.setplayer.times.reset:
+    description: Reset how many times a player has been slapped 
     default: op
   playerslap.config.setplayer.exempt:
     description: Set whether a player is exempt from being slapped or not 

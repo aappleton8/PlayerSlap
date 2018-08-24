@@ -312,7 +312,7 @@ public class PlayerSlapCommand implements CommandExecutor {
 		else if (args[0].equalsIgnoreCase("player")) {
 			if (args.length == 3) {
 				if (args[1].equalsIgnoreCase("remove")) {
-					if (s.hasPermission("PERMISSIONHERE")) {
+					if (s.hasPermission("playerslap.config.removeplayer")) {
 						UUID pid = dep.getUUIDFromPossibleOfflinePlayer(args[2]); 
 						if (pid == null) {
 							plugin.ms.sendMessage(s, "noplayerconfig", null); 
@@ -343,12 +343,17 @@ public class PlayerSlapCommand implements CommandExecutor {
 					}
 					else {
 						if (args[3].equalsIgnoreCase("times")) {
-							setInt("players." + pid.toString() + ".times", args[4], "PERMISSIONHERE", s, plugin.yd); 
+							if (args[4].equalsIgnoreCase("0")) {
+								setInt("players." + pid.toString() + ".times", "0", "playerslap.config.setplayer.times.reset", s, plugin.yd); 
+							}
+							else {
+								setInt("players." + pid.toString() + ".times", args[4], "playerslap.config.setplayer.times", s, plugin.yd); 
+							}
 							plugin.yd.save(); 
 							Bukkit.broadcast(ChatColor.GREEN + plugin.formattedPluginName + "Player updated", "plugin.see.config"); 
 						}
 						else if (args[3].equalsIgnoreCase("exempt")) {
-							setBool("players." + pid.toString() + ".exempt", args[4], "PERMISSIONHERE", s, plugin.yd); 
+							setBool("players." + pid.toString() + ".exempt", args[4], "playerslap.config.setplayer.exempt", s, plugin.yd); 
 							plugin.yd.save(); 
 							Bukkit.broadcast(ChatColor.GREEN + plugin.formattedPluginName + "Player updated", "plugin.see.config"); 
 						}
