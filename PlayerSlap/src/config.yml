@@ -1,5 +1,5 @@
 slapself: true
-slapdefault: 1
+slapdefault: '1'
 incrementonslapall: true
 messages:
   accept: $Default

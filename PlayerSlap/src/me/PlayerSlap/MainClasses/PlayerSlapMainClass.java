@@ -24,8 +24,8 @@ public class PlayerSlapMainClass extends JavaPlugin {
 	public static PlayerSlapMainClass plugin; 
 	protected final Logger logger = Logger.getLogger("Minecraft"); 
 	
-	public YamlFiles yc = new YamlFiles(this, logger, "config.yml", "config.txt");  
-	public YamlFiles yd = new YamlFiles(this, logger, "players.yml", "players.txt");  
+	public YamlFiles yc = new YamlFiles(this, logger, "config.yml", "config.yml");  
+	public YamlFiles yd = new YamlFiles(this, logger, "players.yml", "players.yml");  
 	
 	public MessageSender ms = new MessageSender(this, logger); 
 	private final PlayerListener pl = new PlayerListener(this, logger); 
@@ -64,7 +64,13 @@ public class PlayerSlapMainClass extends JavaPlugin {
 	}
 	
 	private void getCurrentlySlappedPlayers() {
-		Set<String> UUIDs = yd.configuration.getConfigurationSection("players").getKeys(false); 
+		Set<String> UUIDs = Collections.emptySet(); 
+		try {
+			UUIDs = yd.configuration.getConfigurationSection("players").getKeys(false); 
+		}
+		catch (NullPointerException e) {
+			logger.warning(formattedPluginName + "Could not load information from the 'players' key in the 'players.yml' file. "); 
+		}
 		for (String i : UUIDs) {
 			try {
 				Boolean mustAccept = yd.configuration.getBoolean("players." + i + ".currentslap.mustaccept"); 

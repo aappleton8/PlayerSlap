@@ -8,5 +8,5 @@
 #     times (integer): - The number of times the player has been slapped 
 #     currentslap (Section): - Information concerning the player's current slap state 
 #       mustaccept (boolean): - Whether the player needs to accept a slap or not 
-#       permanent (boolean) - Whether the player has a permenant slap or not  
+#       permanent (boolean) - Whether the player has a permanent slap or not  
 #

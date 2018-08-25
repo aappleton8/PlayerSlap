@@ -105,6 +105,9 @@ public abstract class YamlFilesBase {
 			} catch (IOException e) {
 				logger.log(Level.SEVERE, "Unable to create a configuration file", e); 
 			} 
+			catch (NullPointerException e) {
+				logger.log(Level.SEVERE, "Unable to create a configuration file", e); 
+			}
 			theConfiguration = loadAConfiguration(theOutFile); 
 			fileHeaders(theConfiguration); 
 		}

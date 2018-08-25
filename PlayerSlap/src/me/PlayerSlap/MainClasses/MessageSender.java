@@ -95,12 +95,13 @@ public class MessageSender {
 	}
 	
 	public void help(CommandSender s) {
-		s.sendMessage(ChatColor.AQUA + padding + ChatColor.DARK_BLUE + plugin.descriptionFile.getName() + ChatColor.AQUA + " : " + "help" + padding); 
+		s.sendMessage(ChatColor.AQUA + padding + " " + ChatColor.DARK_BLUE + plugin.descriptionFile.getName() + ChatColor.AQUA + " : " + "help" + " " + padding); 
 		s.sendMessage(ChatColor.BLUE + "/slap [<player>] [<type>] [<worth>] " + ChatColor.WHITE + separator + ChatColor.AQUA + " Slap a player "); 
 		s.sendMessage(ChatColor.BLUE + "/slapall [<type>] [<worth>] " + ChatColor.WHITE + separator + ChatColor.AQUA + " Slap every player "); 
 		s.sendMessage(ChatColor.BLUE + "/forceslap <player> [<type>] [<worth>] " + ChatColor.WHITE + separator + ChatColor.AQUA + " Slap a player with the playerslap.noslap permission "); 
 		s.sendMessage(ChatColor.BLUE + "/slapaccept [<player>] " + ChatColor.WHITE + separator + ChatColor.AQUA + " Accept a slap (if the slap requires it) "); 
 		s.sendMessage(ChatColor.BLUE + "/slaprelease <player> " + ChatColor.WHITE + separator + ChatColor.AQUA + " Release a player from a permanent slap "); 
-		s.sendMessage(ChatColor.BLUE + "/playerslap help|version|{times <player>}|{config save|reload|{set <options>}} " + ChatColor.WHITE + separator + ChatColor.AQUA + " The base command "); 
+		s.sendMessage(ChatColor.BLUE + "/slapinfo slaplist|{slap <type>}|{slapmessages <type>}|{slapmobs <type>}|{player <player>}|{times <player>}|general " + ChatColor.WHITE + separator + ChatColor.AQUA + " Get information about the specified object "); 
+		s.sendMessage(ChatColor.BLUE + "/playerslap help|version|{config save|reload|{set <property> <value>}}|{slap {set <type> <property> [sub-property] <value>}|{new <type>}|{remove <type>}}|{player {set <player> <property> <value> [<modifier>]}|{remove <player>}} " + ChatColor.WHITE + separator + ChatColor.AQUA + " The base command to get help and get and set config options "); 
 	}
 }
