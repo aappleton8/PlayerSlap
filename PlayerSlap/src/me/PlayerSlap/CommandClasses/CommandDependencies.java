@@ -128,7 +128,7 @@ class CommandDependencies {
 			return null; 
 		}
 		else {
-			return type; 
+			return obtainedType; 
 		}
 	}
 	
@@ -143,13 +143,13 @@ class CommandDependencies {
 	String formatMessages(String message, String defaultMessage, String giver, String receiver, String type, Boolean permanent) {
 		if (message != null) {
 			String permanentString = permanent ? "permanent " : ""; 
-			return message.replaceAll("$Default", defaultMessage)
-					.replaceAll("$Giver", giver)
-					.replaceAll("$Slapped", receiver)
-					.replaceAll("$None", "")
-					.replaceAll("$Unknwon", plugin.ms.unknownValue)
-					.replaceAll("$Type", type)
-					.replaceAll("$Permanent", permanentString); 
+			return message.replaceAll("\\$Default", defaultMessage)
+					.replaceAll("\\$Giver", giver)
+					.replaceAll("\\$Slapped", receiver)
+					.replaceAll("\\$None", "")
+					.replaceAll("\\$Unknwon", plugin.ms.unknownValue)
+					.replaceAll("\\$Type", type)
+					.replaceAll("\\$Permanent", permanentString); 
 		}
 		else {
 			return "";  

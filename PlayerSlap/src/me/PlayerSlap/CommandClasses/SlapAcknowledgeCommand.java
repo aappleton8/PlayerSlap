@@ -71,6 +71,8 @@ public class SlapAcknowledgeCommand implements CommandExecutor{
 						Bukkit.getPlayer(uid).getName(), plugin.ms.unknownValue, plugin.needAcceptPlayers.get(uid).getValue()); 
 				Bukkit.broadcast(acceptSlapMessage, "playerslap.see.accept"); 
 				plugin.needAcceptPlayers.remove(uid); 
+				plugin.yd.configuration.set("players." + uid.toString() + ".currentslap.mustaccept", false); 
+				plugin.yd.save(); 
 			}
 		}
 		else {
