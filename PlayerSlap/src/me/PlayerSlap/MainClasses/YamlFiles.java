@@ -32,7 +32,7 @@ public class YamlFiles extends YamlFilesBase {
 	@Override
 	public void fullReload() {
 		reload(); 
-		Bukkit.broadcast(ChatColor.GREEN +  plugin.getDescription().getName() + " : " + theOutFile.getName() + " configuration reloaded ", configPermission); 
+		Bukkit.broadcast(ChatColor.GREEN + plugin.getDescription().getName() + " : " + theOutFile.getName() + " configuration reloaded ", configPermission); 
 	}
 	
 	@Override
@@ -42,7 +42,7 @@ public class YamlFiles extends YamlFilesBase {
 			Bukkit.broadcast(ChatColor.GREEN + plugin.getDescription().getName() + " : " + theOutFile.getName() + " configuration saved ", configPermission); 
 		}
 		else {
-			Bukkit.broadcast(ChatColor.RED +  plugin.getDescription().getName() + " : " + theOutFile.getName() + " configuration could not be saved ", configPermission); 
+			Bukkit.broadcast(ChatColor.RED + plugin.getDescription().getName() + " : " + theOutFile.getName() + " configuration could not be saved ", configPermission); 
 		}
 	}
 	

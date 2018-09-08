@@ -10,3 +10,4 @@
 #       mustaccept (boolean): - Whether the player needs to accept a slap or not 
 #       permanent (boolean) - Whether the player has a permanent slap or not  
 #
+#

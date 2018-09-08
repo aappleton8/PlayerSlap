@@ -99,10 +99,15 @@ public class PlayerSlapMainClass extends JavaPlugin {
 	}
 	
 	public void addPlayer(String playerName, String sid) {
+		if (yd.configuration.contains("players") == false) {
+			yd.configuration.createSection("players"); 
+		}
 		yd.configuration.createSection("players." + sid); 
 		yd.configuration.set("players." + sid + ".exempt", false); 
 		yd.configuration.set("players." + sid + ".times", 0); 
 		yd.configuration.set("players." + sid + ".username", playerName); 
-		yd.configuration.set("players." + sid + ".mustaccept", false);
+		yd.configuration.createSection("players." + sid + ".currentslap"); 
+		yd.configuration.set("players." + sid + ".currentslap.mustaccept", false); 
+		yd.configuration.set("players." + sid + ".currentslap.permanent", false); 
 	}
 }

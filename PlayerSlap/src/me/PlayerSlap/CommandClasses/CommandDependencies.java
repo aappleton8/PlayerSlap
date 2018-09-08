@@ -143,13 +143,13 @@ class CommandDependencies {
 	String formatMessages(String message, String defaultMessage, String giver, String receiver, String type, Boolean permanent) {
 		if (message != null) {
 			String permanentString = permanent ? "permanent " : ""; 
-			return message.replaceAll("\\$Default", defaultMessage)
-					.replaceAll("\\$Giver", giver)
-					.replaceAll("\\$Slapped", receiver)
-					.replaceAll("\\$None", "")
-					.replaceAll("\\$Unknwon", plugin.ms.unknownValue)
-					.replaceAll("\\$Type", type)
-					.replaceAll("\\$Permanent", permanentString); 
+			return message.replaceAll("__Default", defaultMessage) 
+					.replaceAll("__Giver", giver)
+					.replaceAll("__Slapped", receiver)
+					.replaceAll("__None", "")
+					.replaceAll("__Unknown", plugin.ms.unknownValue)
+					.replaceAll("__Type", type)
+					.replaceAll("__Permanent", permanentString); 
 		}
 		else {
 			return "";  
@@ -284,7 +284,11 @@ class CommandDependencies {
 			int damage = plugin.yc.configuration.getInt("slaptypes." + type + ".health"); 
 			if (damage > 0) {
 				double health = player.getHealth(); 
-				player.setHealth(health - damage); 
+				double newHealth = health - damage; 
+				if (newHealth < 0) {
+					newHealth = 0; 
+				}
+				player.setHealth(newHealth); 
 				if ((player.getHealth() <= 0) && (deathSlapMessage != "")) {
 					Bukkit.broadcast(ChatColor.RED + deathSlapMessage, "playerslap.see.slap"); 
 				}

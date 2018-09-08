@@ -1,6 +1,6 @@
 name: PlayerSlap
 main: me.PlayerSlap.MainClasses.PlayerSlapMainClass
-version: Development_0.0.0.3
+version: Development_0.0.0.4
 description: A plugin to slap players  
 author: aappleton3 
 database: false

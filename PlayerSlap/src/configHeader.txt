@@ -5,10 +5,11 @@
 # slapdefault (String): - The default slap type 
 # incrementonslapall (boolean): - Increment the recorded slap times for each player when all players are slapped 
 # messages (Section): - Messages sent when someone is slapped 
-#   accept (string): - The message broadcast when a player accepts a slap ($Giver is unavailable; $Type is unavailable [explained further on]) 
-#   releasebroadcast (string): - The message broadcast when a player is released from a permanent slap ($Type is unavailable)
-#   releasepersonal (string): - The message sent to the slapped player when a player is released from a permanent slap ($Type is unavailable)
-#   noreleasepersonal (string): - The message sent to the slapped player when it tries to accept a permanent slap it has not been released from ($Giver is unavailable; $Type is unavailable)
+#   accept (string): - The message broadcast when a player accepts a slap (__Giver is unavailable; __Type is unavailable [explained further on]) 
+#   releasebroadcast (string): - The message broadcast when a player is released from a permanent slap (__Type is unavailable)
+#   releasepersonal (string): - The message sent to the slapped player when a player is released from a permanent slap (__Type is unavailable)
+#   noreleasepersonal (string): - The message sent to the slapped player when it tries to accept a permanent slap it has not been released from (__Type is unavailable)
+#   noreleasesender (string): - The message sent to the command sender when it tries to accept a permanent slap of a player who has not been released from it (__Type is unavailable) 
 # slaptypes (Section): - The definition of the slap types 
 #   '1' (Section): - The name of a slap type 
 #       health (integer): - The health removed when a player is slapped 
@@ -18,7 +19,7 @@
 #         mustaccept (boolean): - Whether the player must accept the slap before being able to move again or not 
 #       lightning (boolean): - Whether the player should be struck by lightning or not 
 #       smoke (integer): - The radius of the smoke effect (0 for no smoke) 
-#       messages (Section): - Slap-specific messages sent when someone is slapped | $Giver becomes the slap giver or the release giver; $Slapped becomes the person slapped; $Default becomes the default messages; $None becomes nothing; $Unknown becomes unknown; $Type becomes the slap type; $Permanent becomes permanent for a permanent slap and nothing otherwise   
+#       messages (Section): - Slap-specific messages sent when someone is slapped | __Giver becomes the slap giver or the release giver; __Slapped becomes the person slapped; __Default becomes the default messages; __None becomes nothing; __Unknown becomes unknown; __Type becomes the slap type; __Permanent becomes permanent for a permanent slap and nothing otherwise   
 #           slapbroadcast (string): - The message broadcast to the server 
 #           slappersonal (string): - The message sent to the slapped player 
 #           death (string): - The additional message broadcast if the player is slapped to death 

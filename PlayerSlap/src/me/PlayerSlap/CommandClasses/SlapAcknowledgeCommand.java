@@ -56,11 +56,22 @@ public class SlapAcknowledgeCommand implements CommandExecutor{
 		if (plugin.needAcceptPlayers.containsKey(uid)) {
 			if (plugin.needAcceptPlayers.get(uid).getValue() == true) {
 				String personalNoReleaseMessage = plugin.ms.personalNoReleaseMessage; 
-				if (plugin.yc.configuration.contains("messages.noreleasepersonal")) {
-					personalNoReleaseMessage = plugin.yc.configuration.getString("messages.noreleasepersonal"); 
+				String senderNoReleaseMessage = plugin.ms.senderNoReleaseMessage; 
+				if (plugin.yc.configuration.contains("messages")) {
+					if (plugin.yc.configuration.contains("messages.noreleasepersonal")) {
+						personalNoReleaseMessage = plugin.yc.configuration.getString("messages.noreleasepersonal"); 
+					}
+					if (plugin.yc.configuration.contains("messages.noreleasesender")) {
+						senderNoReleaseMessage = plugin.yc.configuration.getString("messages.noreleasesender"); 
+					}
 				}
 				personalNoReleaseMessage = dep.formatMessages(personalNoReleaseMessage, plugin.ms.personalNoReleaseMessage, 
-						plugin.ms.unknownValue, Bukkit.getPlayer(uid).getName(), plugin.ms.unknownValue, plugin.needAcceptPlayers.get(uid).getValue()); 
+						s.getName(), Bukkit.getPlayer(uid).getName(), plugin.ms.unknownValue, true); 
+				senderNoReleaseMessage = dep.formatMessages(senderNoReleaseMessage, plugin.ms.senderNoReleaseMessage, s.getName(), Bukkit.getPlayer(uid).getDisplayName(), plugin.ms.unknownValue, true); 
+				Bukkit.getPlayer(uid).sendMessage(personalNoReleaseMessage); 
+				if (Bukkit.getPlayer(uid).getName() != s.getName()) {
+					s.sendMessage(senderNoReleaseMessage); 
+				}
 			}
 			else {
 				String acceptSlapMessage = plugin.ms.acceptSlapMessage; 

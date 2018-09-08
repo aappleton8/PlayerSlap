@@ -10,13 +10,14 @@ public class MessageSender {
 	protected Logger logger; 
 	
 	public final String unknownValue = "Unknown"; 
-	public final String broadcastSlapMessage = "$Slapped has been given a $Permanentslap by $Giver"; 
-	public final String personalSlapMessage = "You were slapped by $Giver"; 
-	public final String deathSlapMessage = "$Slapped was slapped to death"; 
-	public final String acceptSlapMessage = "$Slapped has accepted a slap"; 
-	public final String broadcastReleaseMessage = "$Slapped has been released by $Giver"; 
-	public final String personalReleaseMessage = "You have been released by $Giver"; 
+	public final String broadcastSlapMessage = "__Slapped has been given a __Permanentslap by __Giver"; 
+	public final String personalSlapMessage = "You were slapped by __Giver"; 
+	public final String deathSlapMessage = "__Slapped was slapped to death"; 
+	public final String acceptSlapMessage = "__Slapped has accepted a slap"; 
+	public final String broadcastReleaseMessage = "__Slapped has been released by __Giver"; 
+	public final String personalReleaseMessage = "You have been released by __Giver"; 
 	public final String personalNoReleaseMessage = "You have not yet been released from this slap"; 
+	public final String senderNoReleaseMessage = "__Slapped has not yet been released from this slap"; 
 	
 	public final String padding = "====="; 
 	public final String separator = "-"; 

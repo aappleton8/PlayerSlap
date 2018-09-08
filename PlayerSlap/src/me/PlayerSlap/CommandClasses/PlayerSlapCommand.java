@@ -94,7 +94,8 @@ public class PlayerSlapCommand implements CommandExecutor {
 			if (args.length == 2) {
 				if (args[1].equalsIgnoreCase("save")) {
 					if (s.hasPermission("playerslap.config.save")) {
-						YamlFiles.fullySaveAll(); 
+						plugin.yc.fullSave(); 
+						plugin.yd.fullSave(); 
 						Bukkit.broadcast(ChatColor.GREEN + plugin.formattedPluginName + "Config files saved. ", "plugin.see.config"); 
 					}
 					else {
@@ -104,7 +105,8 @@ public class PlayerSlapCommand implements CommandExecutor {
 				}
 				else if (args[1].equalsIgnoreCase("reload")) {
 					if (s.hasPermission("playerslap.config.reload")) {
-						YamlFiles.fullyReloadAll(); 
+						plugin.yc.fullReload(); 
+						plugin.yd.fullReload();
 						Bukkit.broadcast(ChatColor.GREEN + plugin.formattedPluginName + "Config files reloaded. ", "plugin.see.config"); 
 					}
 					else {

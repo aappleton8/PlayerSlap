@@ -97,10 +97,11 @@ slapself: true
 slapdefault: '1'
 incrementonslapall: true
 messages:
-  accept: $Default
-  releasebroadcast: $Default
-  releasepersonal: $Default
-  noreleasepersonal: $Default
+  accept: \_\_Default
+  releasebroadcast: \_\_Default
+  releasepersonal: \_\_Default
+  noreleasepersonal: \_\
+  noreleasesender: \_\_Default
 slaptypes:
   '1':
     health: 3
@@ -111,9 +112,9 @@ slaptypes:
     lightning: true
     smoke: 30
     messages:
-      slapbroadcast: $Giver slapped $Slapped. 
-      slappersonal: $Giver slapped you. 
-      death: $Default
+      slapbroadcast: \_\_Giver slapped \_\_Slapped. 
+      slappersonal: \_\_Giver slapped you. 
+      death: \_\_Default
     mobs:
       ZOMBIE: 5
       SKELETON: 1
@@ -126,9 +127,9 @@ slaptypes:
     lightning: true
     smoke: 50
     messages:
-      broadcast: $Default
-      personal: $Default
-      death: $Default
+      broadcast: \_\_Default
+      personal: \_\_Default
+      death: \_\_Default
     mobs:
       BLAZE: 10
       GIANT: 1
@@ -136,18 +137,19 @@ slaptypes:
 ```
 
 The string values of subfields of each configuration section called 'messages' can contain some of the following words which will be substituted for another value when the message is sent: 
-- $Default gets substituted for the default message. 
-- $Unknown gets substituted for 'unknown' 
-- $None get substituted for nothing 
-- $Slapped gets substituted for the name of the person who has been slapped 
-- $Giver gets substituted for the name of the person who gave the slap or the name of the person trying to remove a permanent slap (as appropriate) 
-- $Type becomes the slap type 
-- $Permanent becomes 'permanent' if the slap is permanent and nothing otherwise 
+- \_\_Default gets substituted for the default message. 
+- \_\_Unknown gets substituted for 'unknown' 
+- \_\_None get substituted for nothing 
+- \_\_Slapped gets substituted for the name of the person who has been slapped 
+- \_\_Giver gets substituted for the name of the person who gave the slap or the name of the person trying to remove a permanent slap (as appropriate) 
+- \_\_Type becomes the slap type 
+- \_\_Permanent becomes 'permanent' if the slap is permanent and nothing otherwise 
 The following restrictions apply to using the substitutions defined in the above list: 
-- The 'accept' message cannot substitute $Type 
-- The 'releasebroadcast' message cannot substitute $Type 
-- The 'releasepersonal' message cannot substitute $Type 
-- The 'noreleasepersonal' message cannot substitute $Type or $Giver 
+- The 'accept' message cannot substitute \_\_Type 
+- The 'releasebroadcast' message cannot substitute \_\_Type 
+- The 'releasepersonal' message cannot substitute \_\_Type 
+- The 'noreleasepersonal' message cannot substitute \_\_Type
+- The 'noreleasesender' message cannot substitute \_\_Type
 - The 'slapbroadcast' message has no restrictions 
 - The 'slappersonal' message has no restrictions 
 - The 'death' message has no restrictions 
@@ -160,6 +162,7 @@ The below list explains the top-level fields and the fields immediately inside t
 - The 'releasebroadcast' message is the message broadcast when a player is released from a slap. 
 - The 'releasepersonal' message is the message sent to a player when the player is released from a slap. 
 - The 'noreleasepersonal' message is the message sent to a player when it tries to accept a slap from which it has not been released. 
+- The 'noreleasesender' message is the message sent to a player who tries to accept a slap for a player but cannot as it is a permanent slap from which the player has not been released. 
 - The 'slaptypes' section contains the name of each slap type. 
 
 The below list explains the fields within each section about a specific slap: 

@@ -59,9 +59,9 @@ public class SlapInfoCommand implements CommandExecutor {
 				if (s.hasPermission("playerslap.info.slapmessages")) {
 					if (plugin.yc.configuration.contains("slaptypes." + args[1])) {
 						s.sendMessage(plugin.ms.padding + "Information for the " + args[1] + " slap" + plugin.ms.padding); 
-						s.sendMessage("Personal slap message: " + plugin.yc.configuration.getString("slaptypes." + args[1] + ".messages.slappersonal").replaceAll("$Default", plugin.ms.personalSlapMessage));
-						s.sendMessage("Broadcast slap message: " + plugin.yc.configuration.getString("slaptypes." + args[1] + ".messages.slapbroadcast").replaceAll("$Default", plugin.ms.broadcastSlapMessage));
-						s.sendMessage("Death slap message: " + plugin.yc.configuration.getString("slaptypes." + args[1] + ".messages.death").replaceAll("$Default", plugin.ms.deathSlapMessage)); 
+						s.sendMessage("Personal slap message: " + plugin.yc.configuration.getString("slaptypes." + args[1] + ".messages.slappersonal").replaceAll("__Default", plugin.ms.personalSlapMessage));
+						s.sendMessage("Broadcast slap message: " + plugin.yc.configuration.getString("slaptypes." + args[1] + ".messages.slapbroadcast").replaceAll("__Default", plugin.ms.broadcastSlapMessage));
+						s.sendMessage("Death slap message: " + plugin.yc.configuration.getString("slaptypes." + args[1] + ".messages.death").replaceAll("__Default", plugin.ms.deathSlapMessage)); 
 					}
 					else {
 						plugin.ms.sendMessage(s, "incorrectslaptype", null); 
@@ -191,10 +191,11 @@ public class SlapInfoCommand implements CommandExecutor {
 					s.sendMessage("Players can slap themselves: " + plugin.yc.configuration.getString("slapself")); 
 					s.sendMessage("Default slap type: " + plugin.yc.configuration.getString("slapdefault"));
 					s.sendMessage("Player slap counts incremented on '/slapall' command uses: " + plugin.yc.configuration.getString("incrementonslapall")); 
-					s.sendMessage("Slap accept broadcast message: " + plugin.yc.configuration.getString("messages.accept").replaceAll("$Default", plugin.ms.acceptSlapMessage));
-					s.sendMessage("Personal slap release message: " + plugin.yc.configuration.getString("messages.releasepersonal").replaceAll("$Default", plugin.ms.personalReleaseMessage));
-					s.sendMessage("Broadcast slap release message: " + plugin.yc.configuration.getString("messages.releasebroadcast").replaceAll("$Default", plugin.ms.broadcastReleaseMessage));
-					s.sendMessage("Personal slap no release message: " + plugin.yc.configuration.getString("messages.noreleasepersonal").replaceAll("$Default", plugin.ms.personalNoReleaseMessage));
+					s.sendMessage("Slap accept broadcast message: " + plugin.yc.configuration.getString("messages.accept").replaceAll("__Default", plugin.ms.acceptSlapMessage));
+					s.sendMessage("Personal slap release message: " + plugin.yc.configuration.getString("messages.releasepersonal").replaceAll("__Default", plugin.ms.personalReleaseMessage));
+					s.sendMessage("Broadcast slap release message: " + plugin.yc.configuration.getString("messages.releasebroadcast").replaceAll("__Default", plugin.ms.broadcastReleaseMessage));
+					s.sendMessage("Personal slap no release message: " + plugin.yc.configuration.getString("messages.noreleasepersonal").replaceAll("__Default", plugin.ms.personalNoReleaseMessage));
+					s.sendMessage("Sender slap no release message: " + plugin.yc.configuration.getString("messages.noreleasesender").replaceAll("__Default", plugin.ms.senderNoReleaseMessage));
 				}
 				else {
 					plugin.ms.sendMessage(s, "nopermission", null); 
