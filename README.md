@@ -97,11 +97,11 @@ slapself: true
 slapdefault: '1'
 incrementonslapall: true
 messages:
-  accept: \_\_Default
-  releasebroadcast: \_\_Default
-  releasepersonal: \_\_Default
-  noreleasepersonal: \_\
-  noreleasesender: \_\_Default
+  accept: __Default
+  releasebroadcast: __Default
+  releasepersonal: __Default
+  noreleasepersonal: _
+  noreleasesender: __Default
 slaptypes:
   '1':
     health: 3
@@ -112,9 +112,9 @@ slaptypes:
     lightning: true
     smoke: 30
     messages:
-      slapbroadcast: \_\_Giver slapped \_\_Slapped. 
-      slappersonal: \_\_Giver slapped you. 
-      death: \_\_Default
+      slapbroadcast: __Giver slapped __Slapped. 
+      slappersonal: __Giver slapped you. 
+      death: __Default
     mobs:
       ZOMBIE: 5
       SKELETON: 1
@@ -127,9 +127,9 @@ slaptypes:
     lightning: true
     smoke: 50
     messages:
-      broadcast: \_\_Default
-      personal: \_\_Default
-      death: \_\_Default
+      broadcast: __Default
+      personal: __Default
+      death: __Default
     mobs:
       BLAZE: 10
       GIANT: 1
