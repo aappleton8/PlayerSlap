@@ -144,7 +144,7 @@ public class SlapInfoCommand implements CommandExecutor {
 						String sid = pid.toString(); 
 						s.sendMessage(ChatColor.AQUA + "The player " + args[1] + " has the following information: ");
 						s.sendMessage("Is exempt: " + plugin.yd.configuration.getString("players." + sid + ".exempt"));
-						s.sendMessage("This player has been slapped " + plugin.yd.configuration.getString("player." + sid + ".times") + " times "); 
+						s.sendMessage("This player has been slapped " + plugin.yd.configuration.getString("players." + sid + ".times") + " times "); 
 						if (plugin.needAcceptPlayers.containsKey(pid)) {
 							s.sendMessage(ChatColor.RED + "This player is currently under a slap ");
 							s.sendMessage("Player must accept slap: " + plugin.needAcceptPlayers.get(pid).getKey().toString()); 
@@ -172,7 +172,7 @@ public class SlapInfoCommand implements CommandExecutor {
 						plugin.ms.sendMessage(s, "noplayerconfig", null); 
 					}
 					else {
-						s.sendMessage("The player " + args[1] + " has been slapped " + plugin.yd.configuration.getString("player." + pid.toString() + ".times") + " times "); 
+						s.sendMessage("The player " + args[1] + " has been slapped " + plugin.yd.configuration.getString("players." + pid.toString() + ".times") + " times "); 
 					}
 				}
 				else {
@@ -187,15 +187,20 @@ public class SlapInfoCommand implements CommandExecutor {
 		else if (args[0].equalsIgnoreCase("general")) {
 			if (args.length == 1) {
 				if (s.hasPermission("playerslap.info.general")) {
-					s.sendMessage("General " + plugin.descriptionFile.getName() + " plugin config information: "); 
-					s.sendMessage("Players can slap themselves: " + plugin.yc.configuration.getString("slapself")); 
-					s.sendMessage("Default slap type: " + plugin.yc.configuration.getString("slapdefault"));
-					s.sendMessage("Player slap counts incremented on '/slapall' command uses: " + plugin.yc.configuration.getString("incrementonslapall")); 
-					s.sendMessage("Slap accept broadcast message: " + plugin.yc.configuration.getString("messages.accept").replaceAll("__Default", plugin.ms.acceptSlapMessage));
-					s.sendMessage("Personal slap release message: " + plugin.yc.configuration.getString("messages.releasepersonal").replaceAll("__Default", plugin.ms.personalReleaseMessage));
-					s.sendMessage("Broadcast slap release message: " + plugin.yc.configuration.getString("messages.releasebroadcast").replaceAll("__Default", plugin.ms.broadcastReleaseMessage));
-					s.sendMessage("Personal slap no release message: " + plugin.yc.configuration.getString("messages.noreleasepersonal").replaceAll("__Default", plugin.ms.personalNoReleaseMessage));
-					s.sendMessage("Sender slap no release message: " + plugin.yc.configuration.getString("messages.noreleasesender").replaceAll("__Default", plugin.ms.senderNoReleaseMessage));
+					try {
+						s.sendMessage("General " + plugin.descriptionFile.getName() + " plugin config information: "); 
+						s.sendMessage("Players can slap themselves: " + plugin.yc.configuration.getString("slapself")); 
+						s.sendMessage("Default slap type: " + plugin.yc.configuration.getString("slapdefault"));
+						s.sendMessage("Player slap counts incremented on '/slapall' command uses: " + plugin.yc.configuration.getString("incrementonslapall")); 
+						s.sendMessage("Slap accept broadcast message: " + plugin.yc.configuration.getString("messages.accept").replaceAll("__Default", plugin.ms.acceptSlapMessage));
+						s.sendMessage("Personal slap release message: " + plugin.yc.configuration.getString("messages.releasepersonal").replaceAll("__Default", plugin.ms.personalReleaseMessage));
+						s.sendMessage("Broadcast slap release message: " + plugin.yc.configuration.getString("messages.releasebroadcast").replaceAll("__Default", plugin.ms.broadcastReleaseMessage));
+						s.sendMessage("Personal slap no release message: " + plugin.yc.configuration.getString("messages.noreleasepersonal").replaceAll("__Default", plugin.ms.personalNoReleaseMessage));
+						s.sendMessage("Sender slap no release message: " + plugin.yc.configuration.getString("messages.noreleasesender").replaceAll("__Default", plugin.ms.senderNoReleaseMessage));
+					}
+					catch (NullPointerException e) {
+						plugin.ms.sendMessage(s, "configerror", "Messages section of the config.yml file "); 
+					}
 				}
 				else {
 					plugin.ms.sendMessage(s, "nopermission", null); 
@@ -210,5 +215,4 @@ public class SlapInfoCommand implements CommandExecutor {
 			return false;
 		}
 	}
-
 }
