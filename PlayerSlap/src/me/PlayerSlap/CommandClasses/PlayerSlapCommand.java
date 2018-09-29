@@ -69,7 +69,8 @@ public class PlayerSlapCommand implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender s, Command c, String l, String[] args) {
 		if (args.length < 1) {
-			return false; 
+			plugin.ms.help(s); 
+			return true; 
 		}
 		else if (args[0].equalsIgnoreCase("help")) {
 			if (args.length == 1) {
