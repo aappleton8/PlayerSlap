@@ -89,6 +89,9 @@ public class MessageSender {
 		else if (type.equalsIgnoreCase("invalidproperty")) {
 			sender.sendMessage(ChatColor.RED + "That property does not exist "); 
 		}
+		else if (type.equalsIgnoreCase("badhelpsection")) {
+			sender.sendMessage(ChatColor.RED + "The specified help section does not exist "); 
+		}
 		else {
 			sender.sendMessage(ChatColor.RED + "There was an error when trying to send you an error message "); 
 			logger.warning(plugin.formattedPluginName + "There was an error when processing an error message "); 
@@ -96,13 +99,42 @@ public class MessageSender {
 	}
 	
 	public void help(CommandSender s) {
-		s.sendMessage(ChatColor.AQUA + padding + " " + ChatColor.DARK_BLUE + plugin.descriptionFile.getName() + ChatColor.AQUA + " : " + "help" + " " + padding); 
-		s.sendMessage(ChatColor.BLUE + "/slap [<player>] [<type>] [<worth>] " + ChatColor.WHITE + separator + ChatColor.AQUA + " Slap a player "); 
-		s.sendMessage(ChatColor.BLUE + "/slapall [<type>] [<worth>] " + ChatColor.WHITE + separator + ChatColor.AQUA + " Slap every player "); 
-		s.sendMessage(ChatColor.BLUE + "/forceslap <player> [<type>] [<worth>] " + ChatColor.WHITE + separator + ChatColor.AQUA + " Slap a player with the playerslap.noslap permission "); 
-		s.sendMessage(ChatColor.BLUE + "/slapaccept [<player>] " + ChatColor.WHITE + separator + ChatColor.AQUA + " Accept a slap (if the slap requires it) "); 
-		s.sendMessage(ChatColor.BLUE + "/slaprelease <player> " + ChatColor.WHITE + separator + ChatColor.AQUA + " Release a player from a permanent slap "); 
-		s.sendMessage(ChatColor.BLUE + "/slapinfo slaplist|{slap <type>}|{slapmessages <type>}|{slapmobs <type>}|{player <player>}|{times <player>}|general " + ChatColor.WHITE + separator + ChatColor.AQUA + " Get information about the specified object "); 
-		s.sendMessage(ChatColor.BLUE + "/playerslap help|version|{config save|reload|{set <property> <value>}}|{slap {set <type> <property> [sub-property] <value>}|{new <type>}|{remove <type>}}|{player {set <player> <property> <value> [<modifier>]}|{remove <player>}} " + ChatColor.WHITE + separator + ChatColor.AQUA + " The base command to get help and get and set config options "); 
+		help(s, "general", "1"); 
+	}
+	
+	public void help(CommandSender s, String section, String page) {
+		String topper = ChatColor.AQUA + padding + " " + ChatColor.DARK_PURPLE + plugin.descriptionFile.getName() + " help" + ChatColor.AQUA + " | " + ChatColor.DARK_PURPLE + section + " section" + ChatColor.AQUA + " | " + ChatColor.DARK_PURPLE + "page " + page + "/__totalpages " + ChatColor.AQUA + padding; 
+		if (section.equalsIgnoreCase("general")) {
+			s.sendMessage(topper.replace("__totalpages", "1")); 
+			s.sendMessage(ChatColor.BLUE + "/slap [<player>] [<type>] [<worth>] " + ChatColor.WHITE + separator + ChatColor.AQUA + " Slap a player "); 
+			s.sendMessage(ChatColor.BLUE + "/slapall [<type>] [<worth>] " + ChatColor.WHITE + separator + ChatColor.AQUA + " Slap every player "); 
+			s.sendMessage(ChatColor.BLUE + "/forceslap <player> [<type>] [<worth>] " + ChatColor.WHITE + separator + ChatColor.AQUA + " Slap a player with the playerslap.noslap permission "); 
+			s.sendMessage(ChatColor.BLUE + "/slapaccept [<player>] " + ChatColor.WHITE + separator + ChatColor.AQUA + " Accept a slap (if the slap requires it) "); 
+			s.sendMessage(ChatColor.BLUE + "/slaprelease <player> " + ChatColor.WHITE + separator + ChatColor.AQUA + " Release a player from a permanent slap "); 
+			s.sendMessage(ChatColor.BLUE + "/slapinfo slaplist|{slap <type>}|{slapmessages <type>}|{slapmobs <type>}|{player <player>}|{times <player>}|general " + ChatColor.WHITE + separator + ChatColor.AQUA + " Get information about the specified object "); 
+			s.sendMessage(ChatColor.BLUE + "/playerslap [{help [{config|general} [<page>]]}|version] " + ChatColor.WHITE + separator + ChatColor.AQUA + " The basic command to get help and the version "); 
+			s.sendMessage(ChatColor.BLUE + "/slapconfigure {config save|reload|{set <property> <value>}}|{slap {set <type> <property> [<sub-property>] <value>}|{new <type>}|{remove <type>}}|{player {set <player> <property> <value> [<modifier>]}|{remove <player>}} " + ChatColor.WHITE + separator + ChatColor.AQUA + " The command to set config options ");
+		}
+		else if (section.equalsIgnoreCase("config") || section.equalsIgnoreCase("configure")) {
+			s.sendMessage(topper.replace("__totalpages", "2")); 
+			if (page.equalsIgnoreCase("1")) {
+				s.sendMessage(ChatColor.BLUE + "/slapconfigure config save " + ChatColor.WHITE + separator + ChatColor.AQUA + " Save the config "); 
+				s.sendMessage(ChatColor.BLUE + "/slapconfigure config reload " + ChatColor.WHITE + separator + ChatColor.AQUA + " Reload the config "); 
+				s.sendMessage(ChatColor.BLUE + "/slapconfigure config set <property> <value> " + ChatColor.WHITE + separator + ChatColor.AQUA + " Configure the specified config value "); 
+				s.sendMessage(ChatColor.DARK_PURPLE + "<property> is one of 'slapself', 'slapdefault' and 'incrementonslapall' "); 
+			}
+			else {
+				s.sendMessage(ChatColor.BLUE + "/slapconfigure slap set <type> <property> [<sub-property>] <value> " + ChatColor.WHITE + separator + ChatColor.AQUA + " Configure the specified config slap value "); 
+				s.sendMessage(ChatColor.DARK_PURPLE + "<property> is one of 'health', 'worth', 'mustaccept', 'permanent', 'mob', 'lightning' and 'smoke' ");
+				s.sendMessage(ChatColor.BLUE + "/slapconfigure slap new <type> " + ChatColor.WHITE + separator + ChatColor.AQUA + " Add a new slap type "); 
+				s.sendMessage(ChatColor.BLUE + "/slapconfigure slap remove <type> " + ChatColor.WHITE + separator + ChatColor.AQUA + " Remove a slap type ");
+				s.sendMessage(ChatColor.BLUE + "/slapconfigure player set <player> <property> <value> [<modifier>] " + ChatColor.WHITE + separator + ChatColor.AQUA + " Set a config player value ");
+				s.sendMessage(ChatColor.DARK_PURPLE + "<property> is one of 'mustaccept', 'ispermanent', 'times' and 'exempt' "); 
+				s.sendMessage(ChatColor.BLUE + "/slapconfigure player remove <player> " + ChatColor.WHITE + separator + ChatColor.AQUA + " Remove a player from the config ");
+			}
+		}
+		else {
+			sendMessage(s, "badhelpsection", null); 
+		}
 	}
 }

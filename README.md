@@ -3,13 +3,13 @@
 This plugin gives server administrators the ability to 'slap' players as a form of punishment. The action of 'slapping' can involve removing health, spawning mobs, hitting the player with lightning, producing smoke and broadcasting a message. Different types of slaps can be defined in the config file. 
 
 ## Versions: 
-This project is currently in a development build. 
+This project is currently version 1.0.0.0. It is designed for Minecraft Spigot versions between 1.7.x and 1.13.x. The latest latest can be found in the 'releases' section, and the most recent (possibly unstable) build can be found in the 'Jar' folder. 
 
 ## License: 
 This plugin and its source code are released under a MIT license (see the LICENSE file for full details). This plugin is copyright (c) aappleton3/aappleton8, 2018. 
 
 ## Build: 
-This plugin is built using Eclipse. To build the plugin, the .classpath file firstly needs to be recreated using Eclipse, and the craftbukkit-1.12.2.jar file needs to be added as an external build dependency. 
+This plugin is built using Eclipse. To build the plugin, the .classpath file firstly needs to be recreated using Eclipse, and the craftbukkit-1.12.2.jar file (or another appropriate version) needs to be added as an external build dependency. 
 
 ## Commands: 
 This plugin has the following commands: 
@@ -19,10 +19,11 @@ This plugin has the following commands:
  - */slapaccept [&lt;player&gt;]* - Accept the slap 
  - */slaprelease &lt;player&gt;* - Release the player from a permanent slap 
  - */slapinfo slaplist|{slap &lt;type&gt;}|{slapmessages &lt;type&gt;}|{slapmobs &lt;type&gt;}|{player &lt;player&gt;}|{times &lt;player&gt;}|general* - Get information about the available slaps, a specific slap, messages sent by a specific slap, mobs spawned by a specific slap, a player, the amount of times a player has been slapped or general configuration settings. 
- - */playerslap help|version|{config save|reload|{set &lt;property&gt; &lt;value&gt;}}|{slap {set &lt;type&gt; &lt;property&gt; [sub-property] &lt;value&gt;}|{new &lt;type&gt;}|{remove &lt;type&gt;}}|{player {set &lt;player&gt; &lt;property&gt; &lt;value&gt; [&lt;modifier&gt;]}|{remove &lt;player&gt;}}* - The main playerslap command that gives command help, the plugin version and the ability to set configuration and player properties. 
+ - */playerslap [{help [{config|general} [&lt;page&gt;]]}|version* - The basic playerslap command that gives plugin help and the plugin version 
+ - */slapconfigure {config save|reload|{set &lt;property&gt; &lt;value&gt;}}|{slap {set &lt;type&gt; &lt;property&gt; [&lt;sub-property&gt;] &lt;value&gt;}|{new &lt;type&gt;}|{remove &lt;type&gt;}}|{player {set &lt;player&gt; &lt;property&gt; &lt;value&gt; [&lt;modifier&gt;]}|{remove &lt;player&gt;}}* - The main playerslap command that gives the ability to set configuration and player properties. 
 
 ## Permissions: 
-All permissions default to being op only. 
+All permissions default to being ops only. 
  - playerslap.* - The root permission for this plugin 
  - playerslap.slap.all - Slap every players 
  - playerslap.slap.others - Slap other players 

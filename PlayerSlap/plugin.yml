@@ -1,6 +1,6 @@
 name: PlayerSlap
 main: me.PlayerSlap.MainClasses.PlayerSlapMainClass
-version: Development_0.0.0.6
+version: 1.0.0.0
 description: A plugin to slap players  
 author: aappleton3 
 database: false
@@ -36,9 +36,14 @@ commands:
     aliases: [slai, slapi, sli]
     permission-message: You do not have the required permissions to perform this command 
   playerslap:
-    description: The base informative command for the PlayerSlap plugin 
-    usage: /playerslap help|version|{config save|reload|{set <property> <value>}}|{slap {set <type> <property> [sub-property] <value>}|{new <type>}|{remove <type>}}|{player {set <player> <property> <value> [<modifier>]}|{remove <player>}}
+    description: The basic informative command for the PlayerSlap plugin 
+    usage: /playerslap [{help [config]}|version]
     aliases: [ps, plasl, plasla]
+    permission-message: You do not have the required permissions to perform this command 
+  slapconfigure:
+    description: The base command to configure the PlayerSlap plugin 
+    usage: /slapconfigure {config save|reload|{set <property> <value>}}|{slap {set <type> <property> [sub-property] <value>}|{new <type>}|{remove <type>}}|{player {set <player> <property> <value> [<modifier>]}|{remove <player>}}
+    aliases: [sl, slc, slcn, slaconf, plslaconf, plslaconfg, slapconf, slapconfig]
     permission-message: You do not have the required permissions to perform this command 
 permissions:
   playerslap.*:
