@@ -1,6 +1,6 @@
 name: PlayerSlap
 main: me.PlayerSlap.MainClasses.PlayerSlapMainClass
-version: 1.0.0.0
+version: 1.0.0.1
 description: A plugin to slap players  
 author: aappleton3 
 database: false
@@ -271,7 +271,8 @@ permissions:
     description: Use every slap 
     default: op
     children:
-      playerslap.type.worth.*: true
+      playerslap.type.anyworth.*: true
+      playerslap.defaultworth.*: true
       playerslap.type.noworth.*: true
   playerslap.type.anyworth.*:
     description: Use every slap with any positive worth value
