@@ -11,7 +11,7 @@ import org.bukkit.plugin.PluginManager;
 public class YamlFiles extends YamlFilesBase {
 	
 	private final String configPermission = "playerslap.see.config"; 
-	private  static Set<String> slapPermissions = Collections.emptySet(); 
+	private static Set<String> slapPermissions = Collections.emptySet(); 
 
 	public YamlFiles(PlayerSlapMainClass pluginInstance, Logger loggerInstance, String outFileName, String inFileName) {
 		super(pluginInstance, loggerInstance, outFileName, inFileName);

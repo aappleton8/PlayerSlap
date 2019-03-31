@@ -90,12 +90,14 @@ public class PlayerSlapMainClass extends JavaPlugin {
 	private void registerExtraPermissions(PluginManager pm) {
 		Set<String> slapTypes = Collections.emptySet(); 
 		try {
-			slapTypes = plugin.yc.configuration.getConfigurationSection("slaptypes").getKeys(false); 
+			slapTypes = yc.configuration.getConfigurationSection("slaptypes").getKeys(false); 
 		}
 		catch (NullPointerException e) {
 			logger.warning(formattedPluginName + "Could not register extra permissions as the config.yml file could not be loaded : " + e.toString());  
+			e.printStackTrace();
 		}
 		if ((slapTypes != null) && (slapTypes.isEmpty() == false)) {
+			logger.info(formattedPluginName + "Registering extra permissions ");
 			YamlFiles.checkPermissions(slapTypes, pm); 
 		}
 	}

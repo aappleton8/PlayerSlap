@@ -1,6 +1,6 @@
 name: PlayerSlap
 main: me.PlayerSlap.MainClasses.PlayerSlapMainClass
-version: 1.0.0.1
+version: 1.0.0.2
 description: A plugin to slap players  
 author: aappleton3 
 database: false
@@ -23,7 +23,7 @@ commands:
   slapaccept:
     description: Acknowledge that you have been slapped if someone slaps you 
     usage: /slapaccept [<player>] 
-    aliases: [slapac, slaa, slacc]
+    aliases: [slapac, slapacc, slapap, slapapp, slaa, slacc]
     permission-message: You do not have the required permissions to perform this command 
   slaprelease:
     description: Release a player who has been hit with a permanent slap 

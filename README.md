@@ -3,7 +3,7 @@
 This plugin gives server administrators the ability to 'slap' players as a form of punishment. The action of 'slapping' can involve removing health, spawning mobs, hitting the player with lightning, producing smoke and broadcasting a message. Different types of slaps can be defined in the config file. 
 
 ## Versions: 
-This project is currently version 1.0.0.0. It is designed for Minecraft Spigot versions between 1.7.x and 1.13.x. The latest latest can be found in the 'releases' section, and the most recent (possibly unstable) build can be found in the 'Jar' folder. 
+This project is currently version 1.0.0.2. It is designed for Minecraft Spigot versions between 1.7.x and 1.13.x. The latest latest can be found in the 'releases' section, and the most recent (possibly unstable) build can be found in the 'Jar' folder. 
 
 ## License: 
 This plugin and its source code are released under a MIT license (see the LICENSE file for full details). This plugin is copyright (c) aappleton3/aappleton8, 2018. 

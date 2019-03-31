@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Logger;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -143,7 +144,20 @@ public class SlapInfoCommand implements CommandExecutor {
 					else {
 						String sid = pid.toString(); 
 						s.sendMessage(ChatColor.AQUA + "The player " + args[1] + " has the following information: ");
-						s.sendMessage("Is exempt: " + plugin.yd.configuration.getString("players." + sid + ".exempt"));
+						if (Bukkit.getOfflinePlayer(pid).isOnline()) {
+							s.sendMessage("The player is online ");
+							if (Bukkit.getPlayer(pid).hasPermission("playerslap.noslap")) {
+								s.sendMessage("Is exempt: true "); 
+							}
+							else {
+								s.sendMessage("Is exampt: false ");
+							}
+						}
+						else {
+							s.sendMessage("The player is offline "); 
+							s.sendMessage("The exemption status of offline players cannot be obtained "); 
+						}
+						s.sendMessage("Is fully exempt: " + plugin.yd.configuration.getString("players." + sid + ".exempt"));
 						s.sendMessage("This player has been slapped " + plugin.yd.configuration.getString("players." + sid + ".times") + " times "); 
 						if (plugin.needAcceptPlayers.containsKey(pid)) {
 							s.sendMessage(ChatColor.RED + "This player is currently under a slap ");
