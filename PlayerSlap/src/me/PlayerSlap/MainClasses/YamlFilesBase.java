@@ -95,7 +95,7 @@ public abstract class YamlFilesBase {
 	
 	private YamlConfiguration loadFiles() {
 		YamlConfiguration theConfiguration = null; 
-		logger.info("Attempting to load the configuration file " + theOutFile.getName()); 
+		logger.info("[" + plugin.getDescription().getName() + "] " + "Attempting to load the configuration file " + theOutFile.getName()); 
 		if (theOutFile.exists() != true) {
 			try {
 				copy(plugin.getResource(theInFile), new FileOutputStream(theOutFile)); 
