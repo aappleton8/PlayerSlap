@@ -15,34 +15,35 @@ public class YamlFiles extends YamlFilesBase {
 
 	public YamlFiles(PlayerSlapMainClass pluginInstance, Logger loggerInstance, String outFileName, String inFileName) {
 		super(pluginInstance, loggerInstance, outFileName, inFileName);
+		saveNewFile(); 
 	}
 	
 	@Override
 	protected void saveNewFile() {
 		if (configuration != null) {
 			save(); 
-			logger.info("Configuration file " + theOutFile.getName() + " loaded "); 
+			logger.info("[" + plugin.getDescription().getName() + "] " + "Configuration file " + theOutFile.getName() + " loaded "); 
 			configList.put(theOutFile.getName(), this); 
 		}
 		else {
-			logger.severe("Configuration file " + theOutFile.getName() + " could not be loaded or created "); 
+			logger.severe("[" + plugin.getDescription().getName() + "] " + "Configuration file " + theOutFile.getName() + " could not be loaded or created "); 
 		}
 	}
 
 	@Override
 	public void fullReload() {
 		reload(); 
-		Bukkit.broadcast(ChatColor.GREEN + plugin.getDescription().getName() + " : " + theOutFile.getName() + " configuration reloaded ", configPermission); 
+		Bukkit.broadcast(ChatColor.GREEN + "[" + plugin.getDescription().getName() + "] " + theOutFile.getName() + " configuration reloaded ", configPermission); 
 	}
 	
 	@Override
 	public void fullSave() {
 		Boolean saved = save(); 
 		if (saved == true) {
-			Bukkit.broadcast(ChatColor.GREEN + plugin.getDescription().getName() + " : " + theOutFile.getName() + " configuration saved ", configPermission); 
+			Bukkit.broadcast(ChatColor.GREEN + "[" + plugin.getDescription().getName() + "] " + theOutFile.getName() + " configuration saved ", configPermission); 
 		}
 		else {
-			Bukkit.broadcast(ChatColor.RED + plugin.getDescription().getName() + " : " + theOutFile.getName() + " configuration could not be saved ", configPermission); 
+			Bukkit.broadcast(ChatColor.RED + "[" + plugin.getDescription().getName() + "] " + theOutFile.getName() + " configuration could not be saved ", configPermission); 
 		}
 	}
 	
