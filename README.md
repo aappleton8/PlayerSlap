@@ -6,7 +6,7 @@ This plugin gives server administrators the ability to 'slap' players as a form 
 This project is currently in stable version 1.0.0.2. It is designed for Minecraft Spigot versions between 1.7.6 and 1.14.0. The latest version can be found in the 'releases' section, and the most recent (possibly unstable) build can be found in the 'Jar' folder (currently version 1.0.0.4). 
 
 ## License: 
-This plugin and its source code are released under a MIT license (see the LICENSE file for full details). This plugin is copyright (c) aappleton3/aappleton8, 2018. 
+This plugin and its source code are released under a MIT license (see the LICENSE file for full details). This plugin is copyright (c) aappleton3/aappleton8, 2018 - 2019. 
 
 ## Build: 
 This plugin is built using Eclipse. To build the plugin, the .classpath file firstly needs to be recreated using Eclipse, and the craftbukkit-1.12.2.jar file (or another appropriate version) needs to be added as an external build dependency. 
